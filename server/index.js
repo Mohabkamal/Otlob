@@ -6,7 +6,17 @@ const port = 3000;
 const db = require("./database");
 
 // Insert a user
-const insertRestaurant = (name, email) => {
+const insertRestaurant = (
+  name,
+  id,
+  address,
+  password,
+  opening_hours,
+  closing_hours,
+  delivery_radius,
+  description,
+  image_url
+) => {
   db.run(
     "INSERT INTO restaurants (name, id,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
@@ -32,11 +42,11 @@ const insertRestaurant = (name, email) => {
 
 // Query all users
 const getAllUsers = () => {
-  db.all("SELECT * FROM users", (err, rows) => {
+  db.all("SELECT * FROM restaurants", (err, rows) => {
     if (err) {
-      console.error("Error querying users:", err.message);
+      console.error("Error querying restaurants:", err.message);
     } else {
-      console.log("All users:", rows);
+      console.log("All restaurants:", rows);
     }
   });
 };
@@ -64,7 +74,18 @@ const deleteUserById = (id) => {
 };
 
 // Perform operations
-// insertRestaurant("John Doe", "john@example.com");
+insertRestaurant(
+  "John Doe",
+  "123",
+  "John Doe",
+  "john@example.com",
+  "John Doe",
+  "john@example.com",
+  "john@example.com",
+  "john@example.com",
+  "john@example.com"
+);
 
+getAllUsers();
 // Close the database connection
 db.close();
