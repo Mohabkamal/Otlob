@@ -6,7 +6,7 @@ db.serialize(() => {
   // Create 'restaurants' table
   db.run(`
     CREATE TABLE IF NOT EXISTS restaurants (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
@@ -21,7 +21,7 @@ db.serialize(() => {
   // Create 'items' table
   db.run(`
     CREATE TABLE IF NOT EXISTS items (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       price REAL NOT NULL,
       description TEXT NOT NULL,
@@ -35,7 +35,7 @@ db.serialize(() => {
   // Create 'customers' table
   db.run(`
     CREATE TABLE IF NOT EXISTS customers (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       address TEXT NOT NULL,
@@ -47,7 +47,7 @@ db.serialize(() => {
   // Create 'orders' table
   db.run(`
     CREATE TABLE IF NOT EXISTS orders (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       state TEXT NOT NULL,
       date TEXT NOT NULL,
       restaurant_id INTEGER,
