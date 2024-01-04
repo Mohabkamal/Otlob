@@ -1,4 +1,4 @@
-// express : node framework
+// express : node   ramework
 const express = require("express");
 const sqlite3 = require("sqlite3");
 const app = express();
@@ -41,10 +41,10 @@ app.get("/api/getAllRestaurants", (req, res) => {
 
 app.post("/api/insertCustomer", (req, res) => {
   // Extract data from the request body
-  const { first_name, last_name, address, password, zip } = req.body;
+  const { first_name, last_name, address, password, zip, email} = req.body;
 
   // Call the insertRestaurant function
-  insertCustomer(first_name, last_name, address, password, zip);
+  insertCustomer(first_name, last_name, address, password, zip, email);
 
   // Respond to the client
   res.send("Customer inserted successfully");

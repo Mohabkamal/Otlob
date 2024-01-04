@@ -36,10 +36,10 @@ const insertRestaurant = (
 };
 
 //Insert a customer
-const insertCustomer = (first_name, last_name, address, password, zip) => {
+const insertCustomer = (first_name, last_name, address, password, zip, email) => {
   db.run(
-    "INSERT INTO customers ( first_name, last_name, address, password, zip) VALUES ( ?, ?, ?, ?, ?)",
-    [first_name, last_name, address, password, zip],
+    "INSERT INTO customers ( first_name, last_name, address, password, zip, email) VALUES ( ?, ?, ?, ?, ?, ?)",
+    [first_name, last_name, address, password, zip, email],
     (err) => {
       if (err) {
         console.error("Error inserting customer:", err.message);
@@ -163,8 +163,8 @@ module.exports = {
 // insertOrder("123", "Johnggg Doe", "John Doe", "470", "123");
 //getAllOrders();
 
-//insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "470", "passssss");
-//getAllCustomers();
+// insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
+// getAllCustomers();
 
 //getAllRestaurants();
 // Close the database connection

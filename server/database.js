@@ -40,7 +40,8 @@ db.serialize(() => {
       last_name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
-      zip INTEGER NOT NULL
+      zip INTEGER NOT NULL,
+      email string NOT NULL
     )
   `);
 

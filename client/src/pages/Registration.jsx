@@ -13,6 +13,7 @@ function Registration() {
     address: "", // Added address
     zip: "", // Added zip
     password: "",
+    email: ""
   };
 
   const validationSchema = Yup.object().shape({
@@ -21,8 +22,9 @@ function Registration() {
     address: Yup.string().min(5).required(), // Added address validation
     zip: Yup.string().min(5).required(), // Added zip validation
     password: Yup.string().min(4).max(20).required(),
+    email: Yup.string().min(5).max(30).required()
   });
-
+  // edit the onSubmit for login
   const onSubmit = (data, { setSubmitting }) => {
     axios
       .post("http://localhost:3000/api/insertCustomer", data)
@@ -57,6 +59,10 @@ function Registration() {
           <label> Last Name: </label>
           <ErrorMessage name="last_name" component="span" />
           <Field id="last_name" name="last_name" placeholder="(Ex. Doe...)" />
+
+          <label> Email: </label>
+          <ErrorMessage name="email" component="span" />
+          <Field id="email" name="email" placeholder="(exdoe@gmail.com)" />
 
           <label> Address: </label>
           <ErrorMessage name="address" component="span" />
