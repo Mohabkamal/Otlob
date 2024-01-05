@@ -13,7 +13,7 @@ function Registration() {
     address: "", // Added address
     zip: "", // Added zip
     password: "",
-    email: ""
+    email: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -22,7 +22,7 @@ function Registration() {
     address: Yup.string().min(5).required(), // Added address validation
     zip: Yup.string().min(5).required(), // Added zip validation
     password: Yup.string().min(4).max(20).required(),
-    email: Yup.string().min(5).max(30).required()
+    email: Yup.string().min(5).max(30).required(),
   });
   // edit the onSubmit for login
   const onSubmit = (data, { setSubmitting }) => {
@@ -31,7 +31,7 @@ function Registration() {
       .then(() => {
         console.log(data, "Registration successful");
         // Redirect to the home page
-        navigate("/home");
+        navigate("/login");
       })
       .catch((error) => {
         console.error("Error registering:", error);

@@ -17,20 +17,27 @@ function Login() {
     password: Yup.string().min(4).max(20).required(),
   });
 
-  const onSubmit = (data, { setSubmitting }) => {
-    axios
-      .post("http://localhost:3000/api/getCustomerPassword", data)  // Adjust the API endpoint for login
-      .then(() => {
+  const onSubmit = async (data, { setSubmitting }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/getCustomerPassword",
+        { email: data.email }
+      );
+
+      const storedPassword = response.data.password;
+      console.log("res pass in server side", storedPassword);
+      if (data.password === storedPassword) {
         console.log(data, "Login successful");
-        // Redirect to the home page or the desired destination
-        navigate("/home");
-      })
-      .catch((error) => {
-        console.error("Error logging in:", error);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+        localStorage.setItem("userEmail", data.email);
+        navigate("/");
+      } else {
+        console.error("Invalid password");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

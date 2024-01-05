@@ -13,10 +13,9 @@ const insertRestaurant = (
   image_url
 ) => {
   db.run(
-    "INSERT INTO restaurants (name, id,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO restaurants (name,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       name,
-      id,
       address,
       password,
       opening_hours,
@@ -36,7 +35,14 @@ const insertRestaurant = (
 };
 
 //Insert a customer
-const insertCustomer = (first_name, last_name, address, password, zip, email) => {
+const insertCustomer = (
+  first_name,
+  last_name,
+  address,
+  password,
+  zip,
+  email
+) => {
   db.run(
     "INSERT INTO customers ( first_name, last_name, address, password, zip, email) VALUES ( ?, ?, ?, ?, ?, ?)",
     [first_name, last_name, address, password, zip, email],
@@ -124,6 +130,7 @@ const getAllCustomers = (callback) => {
   });
 };
 
+// Get All orders
 const getAllOrders = (callback) => {
   db.all("SELECT * FROM orders", (err, rows) => {
     if (err) {
@@ -135,18 +142,55 @@ const getAllOrders = (callback) => {
     }
   });
 };
-//error here
+
 // Get customer password for specific email
-const getCustomerPassword = (email) => {
-  db.run("SELECT * FROM customers WHERE email = '?' ", [email], (err, rows) => {
+const getCustomerPassword = (email, callback) => {
+  const query = "SELECT * FROM customers WHERE email = ?";
+
+  db.all(query, [email], (err, rows) => {
     if (err) {
       console.error("Error querying Customers:", err.message);
-      // callback(err, null);
+      if (callback) {
+        callback(err, null);
+      }
     } else {
-      console.log("Passwordxd:", rows);
-      // callback(null , rows);
+      if (rows.length > 0) {
+        console.log("Password:", rows[0].password); // Assuming there is a 'password' column
+        if (callback) {
+          callback(null, rows[0].password);
+        }
+      } else {
+        console.log("Email not found");
+        if (callback) {
+          callback(null, null);
+        }
+      }
     }
-    // console.log("Passwordxd:", rows.a);
+  });
+};
+
+// Get specific customer
+const getCustomer = (email, callback) => {
+  const query = "SELECT * FROM customers WHERE email = ?";
+
+  db.all(query, [email], (err, rows) => {
+    if (err) {
+      console.error("Error querying Customer:", err.message);
+      if (callback) {
+        callback(err, null);
+      }
+    } else {
+      if (rows.length > 0) {
+        if (callback) {
+          callback(null, rows[0]);
+        }
+      } else {
+        console.log("Email not found");
+        if (callback) {
+          callback(null, null);
+        }
+      }
+    }
   });
 };
 
@@ -171,6 +215,8 @@ module.exports = {
   getAllCustomers,
   getAllOrders,
   deleteUserById,
+  getCustomerPassword,
+  getCustomer,
 };
 
 // Perform operations
@@ -180,7 +226,7 @@ module.exports = {
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
 
- getCustomerPassword("test22@");
+//getCustomerPassword("test11@");
 
 //getAllRestaurants();
 // Close the database connection

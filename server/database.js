@@ -14,7 +14,8 @@ db.serialize(() => {
       closing_hours TEXT NOT NULL,
       delivery_radius TEXT NOT NULL,
       description TEXT NOT NULL,
-      image_url TEXT
+      image_url TEXT,
+      email TEXT NOT NULL
     )
   `);
 
@@ -41,7 +42,7 @@ db.serialize(() => {
       address TEXT NOT NULL,
       password TEXT NOT NULL,
       zip INTEGER NOT NULL,
-      email string NOT NULL
+      email TEXT NOT NULL
     )
   `);
 

@@ -17,15 +17,16 @@ const {
   getAllUsers,
   updateUserById,
   deleteUserById,
+  getCustomerPassword,
+  getCustomer,
 } = require("./dbFunctions.js");
 
-// Enable CORS for all routes
 app.use(cors());
-
 app.use(express.json());
 
 // Your API routes
 
+// Query restaurants
 app.get("/api/getAllRestaurants", (req, res) => {
   // Call the getAllRestaurants function
   getAllRestaurants((err, rows) => {
@@ -39,9 +40,42 @@ app.get("/api/getAllRestaurants", (req, res) => {
   });
 });
 
+// Insert restaurant
+app.post("/api/insertRestaurant", (req, res) => {
+  // Extract data from the request body
+  const {
+    name,
+    address,
+    password,
+    openiang_hours,
+    closing_hours,
+    delivery_radius,
+    description,
+    image_url,
+    email,
+  } = req.body;
+
+  // Call the insertRestaurant function
+  insertRestaurant(
+    name,
+    address,
+    password,
+    openiang_hours,
+    closing_hours,
+    delivery_radius,
+    description,
+    image_url,
+    email
+  );
+
+  // Respond to the client
+  res.send("Restaurant inserted successfully");
+});
+
+// Insert customer
 app.post("/api/insertCustomer", (req, res) => {
   // Extract data from the request body
-  const { first_name, last_name, address, password, zip, email} = req.body;
+  const { first_name, last_name, address, password, zip, email } = req.body;
 
   // Call the insertRestaurant function
   insertCustomer(first_name, last_name, address, password, zip, email);
@@ -50,23 +84,32 @@ app.post("/api/insertCustomer", (req, res) => {
   res.send("Customer inserted successfully");
 });
 
-//new
+// Password check
 app.post("/api/getCustomerPassword", (req, res) => {
   // Extract data from the request body
-  const {email, password} = req.body;
-  //console.log(email, password)
-  // Call the getCustomerPassword function
-  //  pass = getCustomerPassword(email);
-
-   //check if the 2 passwords are the same
-
-  // Respond to the client
-  res.send("Customer 123 successfully");
+  const { email } = req.body;
+  getCustomerPassword(email, (err, storedPassword) => {
+    if (err) {
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json({ password: storedPassword });
+    }
+  });
 });
 
-// Repeat similar routes for other functions
-
-
+// Query specific customer
+app.post("/api/getCustomer", (req, res) => {
+  const { email } = req.body;
+  getCustomer(email, (err, customer) => {
+    if (err) {
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json({ customer });
+    }
+  });
+});
 
 // Start the server
 app.listen(port, () => {
