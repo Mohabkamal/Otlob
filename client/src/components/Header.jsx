@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import logo from "../assets/logo.png"
 const Header = () => {
   return (
@@ -8,9 +7,9 @@ const Header = () => {
         <img src={logo} alt="Logo" style={logoStyle} />
       </div>
       <div style={titleStyle}>Your App Name</div>
-      <Link to="/orders" style={iconContainer}>
+      <a href="/orders" style={iconContainer}>
         🛒
-      </Link>
+      </a>
     </header>
   );
 };
