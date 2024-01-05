@@ -135,6 +135,20 @@ const getAllOrders = (callback) => {
     }
   });
 };
+//error here
+// Get customer password for specific email
+const getCustomerPassword = (email) => {
+  db.run("SELECT * FROM customers WHERE email = '?' ", [email], (err, rows) => {
+    if (err) {
+      console.error("Error querying Customers:", err.message);
+      // callback(err, null);
+    } else {
+      console.log("Passwordxd:", rows);
+      // callback(null , rows);
+    }
+    // console.log("Passwordxd:", rows.a);
+  });
+};
 
 // Delete user by ID
 const deleteUserById = (id) => {
@@ -164,7 +178,9 @@ module.exports = {
 //getAllOrders();
 
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
-// getAllCustomers();
+//  getAllCustomers();
+
+ getCustomerPassword("test22@");
 
 //getAllRestaurants();
 // Close the database connection

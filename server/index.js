@@ -1,4 +1,4 @@
-// express : node   ramework
+// express : node   framework
 const express = require("express");
 const sqlite3 = require("sqlite3");
 const app = express();
@@ -50,7 +50,23 @@ app.post("/api/insertCustomer", (req, res) => {
   res.send("Customer inserted successfully");
 });
 
+//new
+app.post("/api/getCustomerPassword", (req, res) => {
+  // Extract data from the request body
+  const {email, password} = req.body;
+  //console.log(email, password)
+  // Call the getCustomerPassword function
+  //  pass = getCustomerPassword(email);
+
+   //check if the 2 passwords are the same
+
+  // Respond to the client
+  res.send("Customer 123 successfully");
+});
+
 // Repeat similar routes for other functions
+
+
 
 // Start the server
 app.listen(port, () => {
