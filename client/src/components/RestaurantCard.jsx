@@ -38,11 +38,12 @@ export const RestaurantCard = ({ product, onAddProduct }) => {
       <div className="carouselFooter">
         <p className="carousel-price">{product.price} €</p>
 
-        <IconButton
+        {/* <IconButton
           className="productPreviewBttn"
           style={{ color: "white" }}
           //onClick={() => setSelectedProduct(product)}
-        >
+        > */}
+        
       </div>
     </div>
   );
