@@ -6,7 +6,7 @@ const Header = () => {
       <div style={logoContainer}>
         <img src={logo} alt="Logo" style={logoStyle} />
       </div>
-      <div style={titleStyle}>Your App Name</div>
+      <div style={titleStyle}>Lieferspatz</div>
       <a href="/orders" style={iconContainer}>
         🛒
       </a>

@@ -10,10 +10,11 @@ const insertRestaurant = (
   closing_hours,
   delivery_radius,
   description,
-  image_url
+  image_url,
+  email
 ) => {
   db.run(
-    "INSERT INTO restaurants (name,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO restaurants (name,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
       name,
       address,
@@ -23,6 +24,7 @@ const insertRestaurant = (
       delivery_radius,
       description,
       image_url,
+      email
     ],
     (err) => {
       if (err) {
@@ -98,10 +100,10 @@ const getAllRestaurants = (callback) => {
   db.all("SELECT * FROM restaurants", (err, rows) => {
     if (err) {
       console.error("Error querying restaurants:", err.message);
-      callback(err, null);
+      // callback(err, null);
     } else {
       console.log("All restaurants:", rows);
-      callback(null, rows);
+      // callback(null, rows);
     }
   });
 };
@@ -169,6 +171,32 @@ const getCustomerPassword = (email, callback) => {
   });
 };
 
+// Get restaurant password for specific email
+const getRestaurantPassword = (email, callback) => {
+  const query = "SELECT * FROM restaurants WHERE email = ?";
+
+  db.all(query, [email], (err, rows) => {
+    if (err) {
+      console.error("Error querying Restaurant:", err.message);
+      if (callback) {
+        callback(err, null);
+      }
+    } else {
+      if (rows.length > 0) {
+        console.log("Password:", rows[0].password); // Assuming there is a 'password' column
+        if (callback) {
+          callback(null, rows[0].password);
+        }
+      } else {
+        console.log("Email not found");
+        if (callback) {
+          callback(null, null);
+        }
+      }
+    }
+  });
+};
+
 // Get specific customer
 const getCustomer = (email, callback) => {
   const query = "SELECT * FROM customers WHERE email = ?";
@@ -217,6 +245,7 @@ module.exports = {
   deleteUserById,
   getCustomerPassword,
   getCustomer,
+  getRestaurantPassword
 };
 
 // Perform operations
@@ -227,7 +256,7 @@ module.exports = {
 //  getAllCustomers();
 
 //getCustomerPassword("test11@");
-
-//getAllRestaurants();
+// insertRestaurant("hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha")
+// getAllRestaurants();
 // Close the database connection
 //db.close();

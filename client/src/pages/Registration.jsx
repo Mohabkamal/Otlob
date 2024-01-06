@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Registration() {
   const navigate = useNavigate();
@@ -86,6 +86,10 @@ function Registration() {
           />
 
           <button type="submit"> Register </button>
+          
+          <Link to="/registerrestaurant">
+          <button>Register a Restaurant</button>
+          </Link>
         </Form>
       </Formik>
     </div>

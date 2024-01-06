@@ -9,14 +9,14 @@ function Registration() {
 
   const initialValues = {
     name: "",
-    email: "",
     address: "",
     password: "",
-    delievery_radius: "", // Added zip string that should be cut
-    description: "",
     opening_hours: "",
     closing_hours: "",
+    delievery_radius: "", // Added zip string that should be cut
+    description: "",
     image_url: "",
+    email: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -25,14 +25,13 @@ function Registration() {
     password: Yup.string().min(4).max(20).required(),
     address: Yup.string().min(5).required(),
   });
-  // edit the onSubmit for login
   const onSubmit = (data, { setSubmitting }) => {
     axios
       .post("http://localhost:3000/api/insertRestaurant", data)
       .then(() => {
         console.log(data, "Registration Restaurant successful");
         // Redirect to the home page
-        navigate("/login");
+        navigate("/loginrestaurant");
       })
       .catch((error) => {
         console.error("Error Restaurant registering:", error);

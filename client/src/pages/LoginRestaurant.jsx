@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
-function Login() {
+function LoginRestaurant() {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -18,9 +18,10 @@ function Login() {
   });
 
   const onSubmit = async (data, { setSubmitting }) => {
+    // console.log(data.email)
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/getCustomerPassword",
+        "http://localhost:3000/api/getRestaurantPassword",
         { email: data.email }
       );
 
@@ -28,7 +29,8 @@ function Login() {
       console.log("res pass in server side", storedPassword);
       if (data.password === storedPassword) {
         console.log(data, "Login successful");
-        localStorage.setItem("userEmail", data.email);
+        localStorage.setItem("RestaurantEmail", data.email);
+        // edit to navigate to add items
         navigate("/");
       } else {
         console.error("Invalid password");
@@ -42,7 +44,7 @@ function Login() {
 
   return (
     <div>
-      <Formik
+       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
@@ -63,17 +65,10 @@ function Login() {
           />
 
           <button type="submit">Login</button>
-          
-          <Link to="/registration">
-          <button>Sign up</button>
-          </Link>
-          <Link to="/loginrestaurant">
-          <button>Restaurant login</button>
-          </Link>
         </Form>
       </Formik>
     </div>
   );
 }
 
-export default Login;
+export default LoginRestaurant;

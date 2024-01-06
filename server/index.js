@@ -19,6 +19,7 @@ const {
   deleteUserById,
   getCustomerPassword,
   getCustomer,
+  getRestaurantPassword,
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -84,11 +85,25 @@ app.post("/api/insertCustomer", (req, res) => {
   res.send("Customer inserted successfully");
 });
 
-// Password check
+// Customer password check
 app.post("/api/getCustomerPassword", (req, res) => {
   // Extract data from the request body
   const { email } = req.body;
   getCustomerPassword(email, (err, storedPassword) => {
+    if (err) {
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json({ password: storedPassword });
+    }
+  });
+});
+
+// Restaurant password check
+app.post("/api/getRestaurantPassword", (req, res) => {
+  // Extract data from the request body
+  const { email } = req.body;
+  getRestaurantPassword(email, (err, storedPassword) => {
     if (err) {
       console.error("Error:", err);
       res.status(500).json({ error: "Internal Server Error" });
