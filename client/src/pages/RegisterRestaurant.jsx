@@ -75,10 +75,10 @@ function Registration() {
           />
 
           <label> delievery_radius: </label>
-          <ErrorMessage name="delievery_radius" component="span" />
+          <ErrorMessage name="delivery_radius" component="span" />
           <Field
-            id="delievery_radius"
-            name="delievery_radius"
+            id="delivery_radius"
+            name="delivery_radius"
             placeholder="(Ex. 12345...)"
           />
 

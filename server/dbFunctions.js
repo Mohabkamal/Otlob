@@ -95,15 +95,15 @@ const insertOrder = (state, date, restaurant_id, customer_id) => {
   );
 };
 
-// Query all
+// Query all Restaurants
 const getAllRestaurants = (callback) => {
   db.all("SELECT * FROM restaurants", (err, rows) => {
     if (err) {
       console.error("Error querying restaurants:", err.message);
-      // callback(err, null);
+       callback(err, null);
     } else {
       console.log("All restaurants:", rows);
-      // callback(null, rows);
+       callback(null, rows);
     }
   });
 };
