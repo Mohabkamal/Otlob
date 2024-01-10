@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RestaurantCard } from "../components/RestaurantCard.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Css/Home.css";
 
 function Home() {
@@ -14,17 +14,26 @@ function Home() {
   useEffect(() => {
     const fetchCustomerData = async () => {
       try {
-        const response = await axios.get(
+        const response = await axios.post(
           "http://localhost:3000/api/getCustomer",
-          { email: userEmail }
+          { email: userEmail } // Use userEmail from localStorage
         );
-        setCustomer(response.data.customer);
-        console.log("customer data:", customer);
+  
+        const fetchedCustomer = response.data.customer;
+  
+        if (fetchedCustomer) {
+          console.log("Customer data:", fetchedCustomer);
+          setCustomer(fetchedCustomer);
+        } else {
+          console.log("Email not found in customers table");
+          // Handle the case where the customer is not found
+        }
       } catch (error) {
         console.error("Error fetching customer data:", error);
+        // Handle other errors
       }
     };
-
+  
     fetchCustomerData();
   }, [userEmail]);
 
@@ -66,11 +75,7 @@ function Home() {
   return (
     <>
       {/* <p>Email: {customer.email}</p> */}
-      <br />
-      <Link to="/menu">
-        <br />
-        <button>Menu</button>
-      </Link>
+  
 
       <h2>Restaurants</h2>
 

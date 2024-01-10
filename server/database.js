@@ -28,7 +28,7 @@ db.serialize(() => {
       description TEXT NOT NULL,
       category TEXT NOT NULL,
       image_url TEXT,
-      restaurant_id INTEGER,
+      restaurant_id INTEGER NOT NULL,
       FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
     )
   `);

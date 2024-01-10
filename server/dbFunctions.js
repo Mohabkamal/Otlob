@@ -197,28 +197,49 @@ const getRestaurantPassword = (email, callback) => {
   });
 };
 
-// Get specific customer
-const getCustomer = (email, callback) => {
-  const query = "SELECT * FROM customers WHERE email = ?";
 
-  db.all(query, [email], (err, rows) => {
-    if (err) {
-      console.error("Error querying Customer:", err.message);
-      if (callback) {
-        callback(err, null);
-      }
-    } else {
-      if (rows.length > 0) {
-        if (callback) {
-          callback(null, rows[0]);
-        }
+// Get specific customer
+const getCustomer = (email) => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM customers WHERE email = ?";
+
+    db.all(query, [email], (err, rows) => {
+      if (err) {
+        console.error("Error querying Customer:", err.message);
+        reject(err);
       } else {
-        console.log("Email not found");
-        if (callback) {
-          callback(null, null);
+        console.log("Query executed:", query, [email]);
+        
+        if (rows.length > 0) {
+          resolve(rows[0]);
+        } else {
+          console.log("Email not found in customers table");
+          resolve(null);
         }
       }
-    }
+    });
+  });
+};
+
+// Get specific restaurant
+const getRestaurant = (email) => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM restaurants WHERE email = ?";
+
+    db.all(query, [email], (err, rows) => {
+      if (err) {
+        console.error("Error querying Restaurant:", err.message);
+        reject(err);
+      } else {
+        if (rows.length > 0) {
+          console.log("Restaurant found:", rows[0]);
+          resolve(rows[0]);
+        } else {
+          console.log("Email not found in restaurants table");
+          resolve(null);
+        }
+      }
+    });
   });
 };
 
@@ -265,7 +286,8 @@ module.exports = {
   getCustomerPassword,
   getCustomer,
   getRestaurantPassword,
-  getItemsForRestaurantId
+  getItemsForRestaurantId,
+  getRestaurant
 };
 
 // Perform operations
@@ -276,9 +298,32 @@ module.exports = {
 //  getAllCustomers();
 
 // insertItem("Shawarma", 12.5, "tasty", "ssss", "xxxxxxxxxx", 1)
-// getAllItems()
+ //getAllItems()
+ //getCustomer("test11@")
+//getRestaurant("rest@email.com")
 //getCustomerPassword("test11@");
 // insertRestaurant("hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha")
-// getAllRestaurants();
+ //getAllRestaurants();
 // Close the database connection
 //db.close();
+
+
+// Usage of Promises
+// getCustomer("test11@")
+//   .then((customer) => {
+//     console.log("Customer:", customer);
+//   })
+//   .catch((err) => {
+//     console.error("Error getting customer:", err);
+//   });
+
+//  getRestaurant("rest@email.com")
+//    .then((restaurant) => {
+//      console.log("Restaurant:", restaurant);
+//    })
+//    .catch((err) => {
+//      console.error("Error getting restaurant:", err);
+//    });
+
+
+

@@ -20,7 +20,8 @@ const {
   getCustomerPassword,
   getCustomer,
   getRestaurantPassword,
-  getItemsForRestaurantId
+  getItemsForRestaurantId,
+  getRestaurant,
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -146,17 +147,46 @@ app.post("/api/getRestaurantPassword", (req, res) => {
 });
 
 // Query specific customer
-app.post("/api/getCustomer", (req, res) => {
+app.post("/api/getCustomer", async (req, res) => {
   const { email } = req.body;
-  getCustomer(email, (err, customer) => {
-    if (err) {
-      console.error("Error:", err);
-      res.status(500).json({ error: "Internal Server Error" });
-    } else {
+
+  try {
+    const customer = await getCustomer(email);
+
+    if (customer) {
+      console.log("Customer:", customer);
       res.json({ customer });
+    } else {
+      console.log("Email not found in customers table");
+      res.status(404).json({ error: "Customer not found" });
     }
-  });
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
+// Query specific restaurant
+app.post("/api/getRestaurant", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const restaurant = await getRestaurant(email);
+
+    if (restaurant) {
+      console.log("Restaurant:", restaurant);
+      res.json({ restaurant });
+    } else {
+      console.log("Email not found in restaurants table");
+      res.status(404).json({ error: "Restaurant not found" });
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 
 // Query items for a specific restaurant
 app.get("/api/getItemsForRestaurantId/:id", (req, res) => {

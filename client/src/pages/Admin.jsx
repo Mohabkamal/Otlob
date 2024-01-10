@@ -6,11 +6,11 @@ import * as Yup from "yup";
 function Admin() {
 
   const [restaurant, setRestaurant] = useState([]);
-  const userEmail = localStorage.getItem("userEmail");
+  const RestaurantEmail = localStorage.getItem("RestaurantEmail");
 
   const initialValues = {
     name: "",
-    categoryId: "",
+    category: "",
     description: "",
     price: "",
     imageUrl: "",
@@ -25,32 +25,36 @@ function Admin() {
   
 const validationSchema = Yup.object({
     name: Yup.string().required("Product name is required"),
-    categoryId: Yup.string().required("Product categoryId is required"),
+    category: Yup.string().required("Product category is required"),
     description: Yup.string().required("Product description is required"),
     price: Yup.number().required("Product price is required"),
-    imageUrl: Yup.string().url("Invalid URL"),
   });
 
-
-    useEffect(() => {
-        const fetchRestaurantData = async () => {
-          try {
-            const response = await axios.get(
-              "http://localhost:3000/api/getRestaurant",
-              { email: userEmail }
-            );
-            setRestaurant(response.data.restaurant);
-            console.log("restaurant data:", restaurant);
-          } catch (error) {
-            console.error("Error fetching restaurant data:", error);
-          }
-        };
-    
-        fetchRestaurantData();
-      }, [userEmail]);
+  useEffect(() => {
+    const fetchRestaurantData = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/getRestaurant",
+          { email: RestaurantEmail }
+        );
+        console.log("response restaurant:" ,response.data.restaurant);
+        setRestaurant(response.data.restaurant);
+        console.log("restaurant data:", response.data.restaurant);
+      } catch (error) {
+        console.error("Error fetching restaurant data:", error);
+      }
+    };
+  
+    fetchRestaurantData();
+  }, [RestaurantEmail]);
+  
+  
 
 
       const onSubmit = (data) => {
+
+        data.restaurant_id = restaurant.id;
+
         axios
           .post("http://localhost:3000/api/insertItem", data)
           .then((response) => {
@@ -63,7 +67,7 @@ const validationSchema = Yup.object({
           });
       };
 
-
+      
   return (
     <div className="addingNewProdct">
         <div className="addingNewProdcttitle">
@@ -85,18 +89,13 @@ const validationSchema = Yup.object({
             />
             <label htmlFor="type">Category:</label>
             <ErrorMessage
-              name="categoryId"
+              name="category"
               component="span"
               style={{ color: "red" }}
             />
-            <Field  id="AddingProduct" name="categoryId" as="select"    style={{ width: "300px" }} >
-              <option value="">Select a category</option>
-              {categoryTypes.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
+            <Field  id="category" name="category" placeholder="(Ex. Breakfast, Dinner ...)" style={{ width: "300px" }} >
             </Field>
+
             <label> Description:</label>
             <ErrorMessage
               name="description"
