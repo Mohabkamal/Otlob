@@ -1,0 +1,93 @@
+/* home.css */
+.restaurants-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Optional: Adjust this based on your design */
+  }
+  
+  .restaurant-card {
+    width: 18%; /* Adjust the width based on your design */
+    margin: 1%; /* Adjust the margin based on your design */
+    text-align: center; /* Optional: Center the content */
+  }
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  p {
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .restaurant-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .restaurant-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .restaurant-name {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .restaurant-cuisine {
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .restaurant-delivery-time {
+    color: #555;
+  }
+  
+  .restaurant-preview-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .restaurant-preview-button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  

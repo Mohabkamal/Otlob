@@ -6,7 +6,7 @@ db.serialize(() => {
   // Create 'restaurants' table
   db.run(`
     CREATE TABLE IF NOT EXISTS restaurants (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
@@ -14,14 +14,15 @@ db.serialize(() => {
       closing_hours TEXT NOT NULL,
       delivery_radius TEXT NOT NULL,
       description TEXT NOT NULL,
-      image_url TEXT
+      image_url TEXT,
+      email TEXT NOT NULL
     )
   `);
 
   // Create 'items' table
   db.run(`
     CREATE TABLE IF NOT EXISTS items (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       price REAL NOT NULL,
       description TEXT NOT NULL,
@@ -32,22 +33,25 @@ db.serialize(() => {
     )
   `);
 
+
+
   // Create 'customers' table
   db.run(`
     CREATE TABLE IF NOT EXISTS customers (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       first_name TEXT NOT NULL,
       last_name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
-      zip INTEGER NOT NULL
+      zip INTEGER NOT NULL,
+      email TEXT NOT NULL
     )
   `);
 
   // Create 'orders' table
   db.run(`
     CREATE TABLE IF NOT EXISTS orders (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       state TEXT NOT NULL,
       date TEXT NOT NULL,
       restaurant_id INTEGER,
@@ -56,6 +60,7 @@ db.serialize(() => {
       FOREIGN KEY (customer_id) REFERENCES customers(id)
     )
   `);
+  
 });
 
 module.exports = db;

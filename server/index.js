@@ -1,70 +1,150 @@
-// express : node framework
+// express : node   framework
 const express = require("express");
 const sqlite3 = require("sqlite3");
 const app = express();
 const port = 3000;
 const db = require("./database");
+const cors = require("cors");
 
-// Insert a user
-const insertRestaurant = (name, email) => {
-  db.run(
-    "INSERT INTO restaurants (name, id,address,password ,opening_hours,closing_hours,delivery_radius,description,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [
-      name,
-      id,
-      address,
-      password,
-      opening_hours,
-      closing_hours,
-      delivery_radius,
-      description,
-      image_url,
-    ],
-    (err) => {
-      if (err) {
-        console.error("Error inserting restaurant:", err.message);
-      } else {
-        console.log("Restaurant inserted successfully");
-      }
+const {
+  insertRestaurant,
+  insertCustomer,
+  insertItem,
+  insertOrder,
+  getAllRestaurants,
+  getAllItems,
+  getAllCustomers,
+  getAllUsers,
+  updateUserById,
+  deleteUserById,
+  getCustomerPassword,
+  getCustomer,
+  getRestaurantPassword,
+  getItemsForRestaurantId
+} = require("./dbFunctions.js");
+
+app.use(cors());
+app.use(express.json());
+
+// Your API routes
+
+// Query restaurants
+app.get("/api/getAllRestaurants", (req, res) => {
+  // Call the getAllRestaurants function
+  getAllRestaurants((err, rows) => {
+    if (err) {
+      console.error("Error querying restaurants:", err.message);
+      res.status(500).send("Error fetching restaurants");
+    } else {
+      // Respond to the client with the retrieved data
+      res.json(rows);
     }
+  });
+});
+
+// Insert restaurant
+app.post("/api/insertRestaurant", (req, res) => {
+  // Extract data from the request body
+  const {
+    name,
+    address,
+    password,
+    opening_hours,
+    closing_hours,
+    delivery_radius,
+    description,
+    image_url,
+    email,
+  } = req.body;
+
+  // Call the insertRestaurant function
+  insertRestaurant(
+    name,
+    address,
+    password,
+    opening_hours,
+    closing_hours,
+    delivery_radius,
+    description,
+    image_url,
+    email
   );
-};
 
-// Query all users
-const getAllUsers = () => {
-  db.all("SELECT * FROM users", (err, rows) => {
+  // Respond to the client
+  res.send("Restaurant inserted successfully");
+});
+
+// Insert customer
+app.post("/api/insertCustomer", (req, res) => {
+  // Extract data from the request body
+  const { first_name, last_name, address, password, zip, email } = req.body;
+
+  // Call the insertRestaurant function
+  insertCustomer(first_name, last_name, address, password, zip, email);
+
+  // Respond to the client
+  res.send("Customer inserted successfully");
+});
+
+// Customer password check
+app.post("/api/getCustomerPassword", (req, res) => {
+  // Extract data from the request body
+  const { email } = req.body;
+  getCustomerPassword(email, (err, storedPassword) => {
     if (err) {
-      console.error("Error querying users:", err.message);
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log("All users:", rows);
+      res.json({ password: storedPassword });
     }
   });
-};
+});
 
-// Update user by ID
-const updateUserById = (id, newName) => {
-  db.run("UPDATE users SET name = ? WHERE id = ?", [newName, id], (err) => {
+// Restaurant password check
+app.post("/api/getRestaurantPassword", (req, res) => {
+  // Extract data from the request body
+  const { email } = req.body;
+  getRestaurantPassword(email, (err, storedPassword) => {
     if (err) {
-      console.error("Error updating user:", err.message);
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log("User updated successfully");
+      res.json({ password: storedPassword });
     }
   });
-};
+});
 
-// Delete user by ID
-const deleteUserById = (id) => {
-  db.run("DELETE FROM users WHERE id = ?", [id], (err) => {
+// Query specific customer
+app.post("/api/getCustomer", (req, res) => {
+  const { email } = req.body;
+  getCustomer(email, (err, customer) => {
     if (err) {
-      console.error("Error deleting user:", err.message);
+      console.error("Error:", err);
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      console.log("User deleted successfully");
+      res.json({ customer });
     }
   });
-};
+});
 
-// Perform operations
-// insertRestaurant("John Doe", "john@example.com");
+// Query items for a specific restaurant
+app.get("/api/getItemsForRestaurantId/:id", (req, res) => {
+  const { id } = req.params;
 
-// Close the database connection
-db.close();
+  // Call the getItemsForRestaurant function
+  getItemsForRestaurantId(id, (err, items) => {
+    if (err) {
+      console.error("Error querying items for restaurant:", err.message);
+      res.status(500).send("Error fetching items for restaurant");
+    } else {
+      // Respond to the client with the retrieved items
+      res.json(items);
+    }
+  });
+});
+
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

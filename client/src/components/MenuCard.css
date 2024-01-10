@@ -1,0 +1,46 @@
+/* MenuCard.css */
+
+.menu-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .menu-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-name {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .menu-price {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .menu-footer {
+    margin-top: 10px;
+  }
+  
+  .menu-preview-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .menu-preview-button:hover {
+    background-color: #0056b3;
+  }
+  
