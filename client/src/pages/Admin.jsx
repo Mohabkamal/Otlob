@@ -6,7 +6,7 @@ import * as Yup from "yup";
 function Admin() {
 
   const [restaurant, setRestaurant] = useState([]);
-  const userEmail = localStorage.getItem("userEmail");
+  const userEmail = localStorage.getItem("RestaurantEmail");
 
   const initialValues = {
     name: "",
@@ -28,7 +28,6 @@ const validationSchema = Yup.object({
     categoryId: Yup.string().required("Product categoryId is required"),
     description: Yup.string().required("Product description is required"),
     price: Yup.number().required("Product price is required"),
-    imageUrl: Yup.string().url("Invalid URL"),
   });
 
 
@@ -51,8 +50,14 @@ const validationSchema = Yup.object({
 
 
       const onSubmit = (data) => {
+
+        const itemData = {
+            ...data,
+            restaurant_id: restaurant.id,
+          };
+
         axios
-          .post("http://localhost:3000/api/insertItem", data)
+          .post("http://localhost:3000/api/insertItem", itemData)
           .then((response) => {
             console.log("Product added successfully", response.data);
             // If needed, you can update the state or perform other actions here
@@ -83,20 +88,22 @@ const validationSchema = Yup.object({
             />
             <Field id="AddingProduct" name="name" placeholder="(Ex. Burger, Pizza ...)" style={{ width: "300px" }} 
             />
+
+
+            
             <label htmlFor="type">Category:</label>
             <ErrorMessage
-              name="categoryId"
+              name="category"
               component="span"
               style={{ color: "red" }}
             />
-            <Field  id="AddingProduct" name="categoryId" as="select"    style={{ width: "300px" }} >
-              <option value="">Select a category</option>
-              {categoryTypes.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
+            <Field  id="category" name="category"  placeholder="Components for Ex. Dinner, Lunch ..."  style={{ width: "300px" }} >
+        
             </Field>
+
+
+
+
             <label> Description:</label>
             <ErrorMessage
               name="description"
@@ -111,6 +118,7 @@ const validationSchema = Yup.object({
               placeholder="Components for Ex. Rice, Macaroni ..."
               style={{ width: "300px" }}
             />
+
             <label> Price:</label>
             <ErrorMessage
               name="price"
@@ -135,6 +143,7 @@ const validationSchema = Yup.object({
               placeholder="(https://photo.com)"
               style={{ width: "80%" }}
             />
+            
             <button type="submit">Add</button>
           </Form>
         </Formik>
