@@ -112,10 +112,10 @@ const getAllItems = (callback) => {
   db.all("SELECT * FROM items", (err, rows) => {
     if (err) {
       console.error("Error querying items:", err.message);
-      callback(err, null);
+      // callback(err, null);
     } else {
       console.log("All Items:", rows);
-      callback(null, rows);
+      // callback(null, rows);
     }
   });
 };
@@ -275,6 +275,8 @@ module.exports = {
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
 
+// insertItem("Shawarma", 12.5, "tasty", "ssss", "xxxxxxxxxx", 1)
+// getAllItems()
 //getCustomerPassword("test11@");
 // insertRestaurant("hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha", "hahaha")
 // getAllRestaurants();

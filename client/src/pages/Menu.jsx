@@ -15,9 +15,9 @@ function Menu() {
       .get(`http://localhost:3000/api/getItemsForRestaurantId/${id}`)
       .then((res) => {
         console.log(res.data, "Items for restaurant ID:", id);
-
+        // console.log(res)
         if (Array.isArray(res.data)) {
-          setItems(res.data.items);
+          setItems(res.data);
         } else {
           console.error(
             "Invalid data format for ITEMS:",
