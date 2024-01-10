@@ -1,13 +1,13 @@
 import { useState } from "react";
 import "./RestaurantCard.css";
 
-export const RestaurantCard = ({ restaurant }) => {
+export const RestaurantCard = ({ restaurant, onClick  }) => {
  // eslint-disable-next-line 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   
   return (
-    <div className="restaurant-card">
+    <div className="restaurant-card" onClick={() => onClick(restaurant)}>
       <img
         className="restaurant-image"
         src={restaurant.image}
@@ -16,16 +16,6 @@ export const RestaurantCard = ({ restaurant }) => {
 
       <h2 className="restaurant-name">{restaurant.name}</h2>
 
-
-      <div className="restaurant-footer">
-        <button
-          className="restaurant-preview-button"
-          style={{ color: "white" }}
-          onClick={() => setSelectedRestaurant(restaurant)}
-        >
-          Preview
-        </button>
-      </div>
     </div>
   );
 };

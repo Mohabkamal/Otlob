@@ -20,6 +20,7 @@ const {
   getCustomerPassword,
   getCustomer,
   getRestaurantPassword,
+  getItemsForRestaurantId
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -125,6 +126,23 @@ app.post("/api/getCustomer", (req, res) => {
     }
   });
 });
+
+// Query items for a specific restaurant
+app.get("/api/getItemsForRestaurantId/:id", (req, res) => {
+  const { id } = req.params;
+
+  // Call the getItemsForRestaurant function
+  getItemsForRestaurantId(id, (err, items) => {
+    if (err) {
+      console.error("Error querying items for restaurant:", err.message);
+      res.status(500).send("Error fetching items for restaurant");
+    } else {
+      // Respond to the client with the retrieved items
+      res.json(items);
+    }
+  });
+});
+
 
 // Start the server
 app.listen(port, () => {

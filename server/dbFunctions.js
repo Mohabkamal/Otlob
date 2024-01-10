@@ -233,6 +233,25 @@ const deleteUserById = (id) => {
   });
 };
 
+const getItemsForRestaurantId = (restaurantId, callback) => {
+  const query = "SELECT * FROM items WHERE restaurant_id = ?";
+
+  db.all(query, [restaurantId], (err, rows) => {
+    if (err) {
+      console.error("Error querying items for restaurant:", err.message);
+      if (callback) {
+        callback(err, null);
+      }
+    } else {
+      console.log("Items for restaurant:", rows);
+      if (callback) {
+        callback(null, rows);
+      }
+    }
+  });
+};
+
+
 module.exports = {
   insertRestaurant,
   insertCustomer,
@@ -245,7 +264,8 @@ module.exports = {
   deleteUserById,
   getCustomerPassword,
   getCustomer,
-  getRestaurantPassword
+  getRestaurantPassword,
+  getItemsForRestaurantId
 };
 
 // Perform operations

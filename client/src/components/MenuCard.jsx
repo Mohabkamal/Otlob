@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./MenuCard.css";
 
 export const MenuCard = ({ item }) => {
@@ -18,7 +19,7 @@ export const MenuCard = ({ item }) => {
 
       <div className="menu-footer">
         <button className="menu-preview-button" style={{ color: "white" }}>
-          Preview
+          Add
         </button>
       </div>
     </div>

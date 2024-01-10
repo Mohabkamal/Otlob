@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { RestaurantCard } from "../components/RestaurantCard.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Css/Home.css";
 
 function Home() {
@@ -9,6 +9,7 @@ function Home() {
   const [customer, setCustomer] = useState(null);
   const [restaurants, setRestaurants] = useState([]);
   const userEmail = localStorage.getItem("userEmail");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCustomerData = async () => {
@@ -57,6 +58,11 @@ function Home() {
     fetchAllRestaurants();
   }, [customer]);
 
+
+  const handleRestaurantClick = (restaurant) => {
+    navigate(`/menu/${restaurant.id}`);
+  };
+
   return (
     <>
       {/* <p>Email: {customer.email}</p> */}
@@ -71,7 +77,13 @@ function Home() {
       <div className="restaurants-container">
         {restaurants.length > 0 &&
           restaurants.map((restaurant, index) => {
-            return <RestaurantCard key={index} restaurant={restaurant} />;
+            return (
+              <RestaurantCard
+                key={index}
+                restaurant={restaurant}
+                onClick={() => handleRestaurantClick(restaurant)}
+              />
+            );
           })}
       </div>
     </>
