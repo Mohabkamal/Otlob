@@ -74,6 +74,37 @@ app.post("/api/insertRestaurant", (req, res) => {
   res.send("Restaurant inserted successfully");
 });
 
+
+
+  
+  // Insert item
+  app.post("/api/insertItem", (req, res) => {
+    // Extract data from the request body
+    const {
+      name,
+      price,
+      description,
+      category,
+      image_url,
+      restaurant_id,
+    } = req.body;
+
+     // Call the insetItem function
+  insertItem(
+    name,
+    price,
+    description,
+    category,
+    image_url,
+    restaurant_id
+  );
+
+  // Respond to the client
+  res.send("Item inserted successfully");
+});
+
+
+
 // Insert customer
 app.post("/api/insertCustomer", (req, res) => {
   // Extract data from the request body

@@ -33,6 +33,8 @@ db.serialize(() => {
     )
   `);
 
+
+
   // Create 'customers' table
   db.run(`
     CREATE TABLE IF NOT EXISTS customers (
@@ -58,6 +60,7 @@ db.serialize(() => {
       FOREIGN KEY (customer_id) REFERENCES customers(id)
     )
   `);
+  
 });
 
 module.exports = db;

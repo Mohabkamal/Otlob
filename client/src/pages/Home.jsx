@@ -15,7 +15,7 @@ function Home() {
     const fetchCustomerData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/api/getAllRestaurants",
+          "http://localhost:3000/api/getCustomer",
           { email: userEmail }
         );
         setCustomer(response.data.customer);

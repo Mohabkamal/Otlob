@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import LoginRestaurant from "./pages/LoginRestaurant";
 import Menu from "./pages/Menu";
 import MyOrders from "./pages/MyOrders";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/menu/:id" element={<Menu />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/MyOrders" element={<MyOrders />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </div>
