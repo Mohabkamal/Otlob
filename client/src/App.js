@@ -10,9 +10,14 @@ import LoginRestaurant from "./pages/LoginRestaurant";
 import Menu from "./pages/Menu";
 import MyOrders from "./pages/MyOrders";
 import Admin from "./pages/Admin";
+import { CartProvider } from './CartContext/CartContext.jsx';
+
 
 function App() {
   return (
+    <CartProvider>
+
+   
     <div className="App">
       <Header />
       <Router>
@@ -29,7 +34,8 @@ function App() {
         </Routes>
       </Router>
     </div>
-  );
+   </CartProvider>
+   );
 }
 
 export default App;

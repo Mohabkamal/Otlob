@@ -2,12 +2,15 @@ import axios from "axios";
 import{ useEffect, useState }  from "react";
 import { useParams } from "react-router-dom";
 import MenuCard from "../components/MenuCard.jsx";
+import "./Css/Menu.css";
+import Cart from "../pages/Cart.jsx";
 
 
 function Menu() {
 
   const { id } = useParams();
   const [items, setItems] = useState([]);
+
 
  useEffect(() => {
     // Fetch items based on the restaurant ID
@@ -30,12 +33,21 @@ function Menu() {
       });
   }, [id]);
 
+;
+
   return (
-    <div>
-      <h2>Menu</h2>
-      {items.map((item) => (
-        <MenuCard key={item.id} item={item} />
-      ))}
+    <div className="menu-container">
+      <div className="menu-items">
+        <h2>Menu</h2>
+        <div className="menu-items-grid">
+          {items.map((item) => (
+            <MenuCard key={item.id} item={item} />
+          ))}
+        </div>
+      </div>
+      <div className="menu-cart">
+      <Cart />
+      </div>
     </div>
   );
 }

@@ -118,6 +118,18 @@ app.post("/api/insertCustomer", (req, res) => {
   res.send("Customer inserted successfully");
 });
 
+// Insert order
+app.post("/api/insertOrder", (req, res) => {
+  // Extract data from the request body
+  const { state, restaurant_id, customer_id, items_json } = req.body;
+  const date = new Date().toISOString();
+  // Call the inserOrder function
+  insertOrder(state, date, restaurant_id, customer_id, items_json);
+  // Respond to the client
+  res.send("Customer inserted successfully");
+});
+
+
 // Customer password check
 app.post("/api/getCustomerPassword", (req, res) => {
   // Extract data from the request body

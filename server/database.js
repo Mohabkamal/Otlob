@@ -56,11 +56,15 @@ db.serialize(() => {
       date TEXT NOT NULL,
       restaurant_id INTEGER,
       customer_id INTEGER,
+      items_json TEXT,
       FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
       FOREIGN KEY (customer_id) REFERENCES customers(id)
     )
   `);
   
+  
 });
+
+
 
 module.exports = db;

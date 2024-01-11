@@ -1,11 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./MenuCard.css";
+import { useCart } from "../CartContext/CartContext.jsx";
 
-export const MenuCard = ({ item }) => {
+
+export const MenuCard = ({ item  }) => {
  // eslint-disable-next-line 
 
-  
+ const { addItem } = useCart();
+
+
+ const handleAddToCart = () => {
+  console.log("item menucard",item)
+  addItem(item);
+};
+
+
  return (
     <div className="menu-card">
       <img
@@ -18,8 +28,12 @@ export const MenuCard = ({ item }) => {
       <h2 className="menu-name">{item.price}</h2>
 
       <div className="menu-footer">
-        <button className="menu-preview-button" style={{ color: "white" }}>
-          Add
+        <button
+          className="menu-preview-button"
+          style={{ color: "white" }}
+          onClick={handleAddToCart}
+        >
+          Add to Cart
         </button>
       </div>
     </div>

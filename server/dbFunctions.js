@@ -81,10 +81,10 @@ const insertItem = (
 };
 
 //Insert an order
-const insertOrder = (state, date, restaurant_id, customer_id) => {
+const insertOrder = (state, date, restaurant_id, customer_id, items_json) => {
   db.run(
-    "INSERT INTO orders (state, date, restaurant_id, customer_id) VALUES (?, ?, ?, ?)",
-    [state, date, restaurant_id, customer_id],
+    "INSERT INTO orders (state, date, restaurant_id, customer_id, items_json) VALUES (?, ?, ?, ?, ?)",
+    [state, date, restaurant_id, customer_id, items_json],
     (err) => {
       if (err) {
         console.error("Error inserting order:", err.message);
@@ -96,51 +96,43 @@ const insertOrder = (state, date, restaurant_id, customer_id) => {
 };
 
 // Query all Restaurants
-const getAllRestaurants = (callback) => {
+const getAllRestaurants = () => {
   db.all("SELECT * FROM restaurants", (err, rows) => {
     if (err) {
       console.error("Error querying restaurants:", err.message);
-       callback(err, null);
     } else {
       console.log("All restaurants:", rows);
-       callback(null, rows);
     }
   });
 };
 
-const getAllItems = (callback) => {
+const getAllItems = () => {
   db.all("SELECT * FROM items", (err, rows) => {
     if (err) {
       console.error("Error querying items:", err.message);
-      // callback(err, null);
     } else {
       console.log("All Items:", rows);
-      // callback(null, rows);
     }
   });
 };
 
-const getAllCustomers = (callback) => {
+const getAllCustomers = () => {
   db.all("SELECT * FROM customers", (err, rows) => {
     if (err) {
       console.error("Error querying customers:", err.message);
-      callback(err, null);
     } else {
       console.log("All customers:", rows);
-      callback(null, rows);
     }
   });
 };
 
 // Get All orders
-const getAllOrders = (callback) => {
+const getAllOrders = () => {
   db.all("SELECT * FROM orders", (err, rows) => {
     if (err) {
       console.error("Error querying orders:", err.message);
-      callback(err, null);
     } else {
       console.log("All orders:", rows);
-      callback(null, rows);
     }
   });
 };
@@ -297,7 +289,8 @@ module.exports = {
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
 
-// insertItem("Shawarma", 12.5, "tasty", "ssss", "xxxxxxxxxx", 1)
+// insertOrder("preparing", "date", "tasty", "2", "8", "{dsfdfsdfsdfsdfsdfsdfs}")
+ //getAllRestaurants()
  //getAllItems()
  //getCustomer("test11@")
 //getRestaurant("rest@email.com")
