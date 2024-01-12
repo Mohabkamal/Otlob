@@ -50,6 +50,13 @@ const cartReducer = (state, action) => {
         items: [],
       };
 
+      case "CALCULATE_TOTAL":
+      const total = state.items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+      return {
+        ...state,
+        total,
+      };
+
     default:
       return state;
   }
@@ -58,18 +65,22 @@ const cartReducer = (state, action) => {
 const CartProvider = ({ children }) => {
   const [cartState, dispatch] = useReducer(cartReducer, {
     items: [],
+    total: 0,
   });
 
   const addItemToCart = (item) => {
     dispatch({ type: "ADD_ITEM", payload: item });
+    dispatch({ type: "CALCULATE_TOTAL" });
   };
 
   const removeItemFromCart = (itemId) => {
     dispatch({ type: "REMOVE_ITEM", payload: itemId });
+    dispatch({ type: "CALCULATE_TOTAL" });
   };
 
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
+    dispatch({ type: "CALCULATE_TOTAL" });
   };
 
   return (
@@ -79,6 +90,7 @@ const CartProvider = ({ children }) => {
         addItem: addItemToCart,
         removeItem: removeItemFromCart,
         clearCart,
+        total: cartState.total,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import './Css/Cart.css';
 function Cart() {
-  const { cart, clearCart, addItem, removeItem } = useCart();
+  const { cart, clearCart, addItem, removeItem, total } = useCart();
   const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState([]);
   const [customer, setCustomer] = useState(null);
@@ -73,6 +73,7 @@ function Cart() {
         restaurant_id: restaurant.id,
         customer_id: customer.id, 
         items_json: itemsJsonString,
+        total_price : total
       });
       navigate(`/myorders`);
     } catch (error) {
@@ -95,6 +96,8 @@ function Cart() {
           </div>
         ))}
       </div>
+
+      <p>Total Price: ${total.toFixed(2)}</p>
       <button onClick={clearCart} className="cart-button">Clear Cart</button>
       <button onClick={proceedToOrder} className="cart-button">Proceed to Order</button>
     </div>

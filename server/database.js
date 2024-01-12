@@ -49,6 +49,8 @@ db.serialize(() => {
   `);
 
   // Create 'orders' table
+
+
   db.run(`
     CREATE TABLE IF NOT EXISTS orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,6 +59,7 @@ db.serialize(() => {
       restaurant_id INTEGER,
       customer_id INTEGER,
       items_json TEXT,
+      total_price REAL NOT NULL,
       FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
       FOREIGN KEY (customer_id) REFERENCES customers(id)
     )

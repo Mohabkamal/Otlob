@@ -82,6 +82,9 @@ return (
             <p className="no-items">No items found for this order</p>
           )}
         </div>
+        <div className="order-info">
+          <p>Total Price: {order.total_price} $</p>
+        </div>
       </div>
     ))}
   </div>
