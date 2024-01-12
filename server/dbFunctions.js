@@ -306,14 +306,14 @@ module.exports = {
 
 // Perform operations
 // insertOrder("123", "Johnggg Doe", "John Doe", "470", "123");
-//getAllOrders();
+// getAllOrders();
 
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
 
 // insertOrder("preparing", "date", "tasty", "2", "8", "{dsfdfsdfsdfsdfsdfsdfs}")
  //getAllRestaurants()
- //getAllItems()
+ getAllItems()
  //getCustomer("test11@")
 //getRestaurant("rest@email.com")
 //getCustomerPassword("test11@");

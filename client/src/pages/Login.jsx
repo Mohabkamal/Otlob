@@ -3,9 +3,10 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import "./Css/Register.css";
 
 function Login() {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const initialValues = {
     email: "",
@@ -41,18 +42,19 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="body-container">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label>Email:</label>
+          <div className="input-group"> <label>Email:</label>
           <ErrorMessage name="email" component="span" />
           <Field id="email" name="email" placeholder="(exdoe@gmail.com)" />
+          </div>
 
-          <label>Password:</label>
+          <div className="input-group"> <label>Password:</label>
           <ErrorMessage name="password" component="span" />
           <Field
             autoComplete="off"
@@ -60,14 +62,14 @@ function Login() {
             id="password"
             name="password"
             placeholder="Your Password ..."
-          />
+          /> </div>
 
           <button type="submit">Login</button>
           
-          <Link to="/registration">
+          <Link to="/registration" className="link-to-register">
           <button>Sign up</button>
           </Link>
-          <Link to="/loginrestaurant">
+          <Link to="/loginrestaurant" className="link-to-register">
           <button>Restaurant login</button>
           </Link>
         </Form>

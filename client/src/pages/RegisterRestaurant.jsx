@@ -91,23 +91,23 @@ function Registration() {
           <Field
             id="description"
             name="description"
-            placeholder="(Ex. 123 Main St...)"
+            placeholder="(Restaurant description)"
           /></div>
          
          <div className="input-group"><label> Opening hours: </label>
-          <ErrorMessage name="address" component="span" />
+          <ErrorMessage name="opening_hours" component="span" />
           <Field
             id="opening_hours"
             name="opening_hours"
-            placeholder="(Ex. 123 Main St...)"
+            placeholder="(Ex. 10)"
           /> </div>
           
           <div className="input-group">  <label> Closing hours: </label>
-          <ErrorMessage name="address" component="span" />
+          <ErrorMessage name="closing_hours" component="span" />
           <Field
             id="closing_hours"
             name="closing_hours"
-            placeholder="(Ex. 123 Main St...)"
+            placeholder="(Ex. 22)"
           />
  </div>
 

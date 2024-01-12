@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./Css/Register.css";
+
 
 function LoginRestaurant() {
   const navigate = useNavigate();
@@ -43,18 +45,19 @@ function LoginRestaurant() {
   };
 
   return (
-    <div>
+    <div  className="body-container">
        <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label>Email:</label>
+        <div className="input-group"> <label>Email:</label>
           <ErrorMessage name="email" component="span" />
           <Field id="email" name="email" placeholder="(exdoe@gmail.com)" />
+        </div>
 
-          <label>Password:</label>
+        <div className="input-group"> <label>Password:</label>
           <ErrorMessage name="password" component="span" />
           <Field
             autoComplete="off"
@@ -62,7 +65,7 @@ function LoginRestaurant() {
             id="password"
             name="password"
             placeholder="Your Password ..."
-          />
+          /> </div>
 
           <button type="submit">Login</button>
         </Form>
