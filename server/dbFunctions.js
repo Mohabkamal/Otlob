@@ -96,15 +96,18 @@ const insertOrder = (state, date, restaurant_id, customer_id, items_json) => {
 };
 
 // Query all Restaurants
-const getAllRestaurants = () => {
+const getAllRestaurants = (callback) => {
   db.all("SELECT * FROM restaurants", (err, rows) => {
     if (err) {
       console.error("Error querying restaurants:", err.message);
+       callback(err, null);
     } else {
       console.log("All restaurants:", rows);
+       callback(null, rows);
     }
   });
 };
+
 
 const getAllItems = () => {
   db.all("SELECT * FROM items", (err, rows) => {

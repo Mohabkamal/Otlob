@@ -6,9 +6,9 @@ const Header = () => {
       <div style={logoContainer}>
         <img src={logo} alt="Logo" style={logoStyle} />
       </div>
-      <div style={titleStyle}>Lieferspatz</div>
-      <a href="/orders" style={iconContainer}>
-        🛒
+      <a href="/" style={titleStyle}>Lieferspatz</a>
+      <a href="/myorders" style={iconContainer}>
+        🚚
       </a>
     </header>
   );
@@ -35,6 +35,8 @@ const logoStyle = {
 const titleStyle = {
   flexGrow: 1,
   fontSize: "20px",
+  textDecoration: 'none', 
+  color: 'white',
 };
 
 const iconContainer = {

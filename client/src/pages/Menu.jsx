@@ -11,9 +11,8 @@ function Menu() {
   const { id } = useParams();
   const [items, setItems] = useState([]);
 
-
+  // Fetch items based on the restaurant ID
  useEffect(() => {
-    // Fetch items based on the restaurant ID
     axios
       .get(`http://localhost:3000/api/getItemsForRestaurantId/${id}`)
       .then((res) => {

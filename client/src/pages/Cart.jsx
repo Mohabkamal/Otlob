@@ -2,7 +2,7 @@ import { useCart } from "../CartContext/CartContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import './Css/Cart.css';
 function Cart() {
   const { cart, clearCart, addItem, removeItem } = useCart();
   const navigate = useNavigate();
@@ -66,37 +66,37 @@ function Cart() {
     try {
       console.log("restaurant",restaurant);
       console.log("customer",customer)
-      // Make an API call to insert the order
+      const itemsJsonString = JSON.stringify(cart);
+
       const response = await axios.post('http://localhost:3000/api/insertOrder', {
         state:"Received",
-        restaurant_id: restaurant.id, // Include restaurant ID
-        customer_id: customer.id, // Include customer ID
-        items_json: cart,
+        restaurant_id: restaurant.id,
+        customer_id: customer.id, 
+        items_json: itemsJsonString,
       });
-
-      // After a successful order insertion, navigate to MyOrders page with the order ID
       navigate(`/myorders`);
     } catch (error) {
       console.error('Error processing order:', error);
     }
   };
-
   return (
-    <div>
+    <div className="cart-container">
       <h2>Your Cart</h2>
-      {console.log('Mapping items:', cart)}
-      {cart.map((item) => (
-        <div key={item.id}>
-          <p>name: {item.name}</p>
-          <p>quantity: {item.quantity}</p>
-          <p>price: {item.price}</p>
-          <button onClick={() => addItem(item)}>+</button>
-          <button onClick={() => removeItem(item.id)}>-</button>
-        </div>
-      ))}
-      <button onClick={clearCart}>Clear Cart</button>
-
-      <button onClick={proceedToOrder}>Proceed to Order</button>
+      <div className="cart-items-container">
+        {cart.map((item) => (
+          <div className="cart-item" key={item.id}>
+            <p>name: {item.name}</p>
+            <p>quantity: {item.quantity}</p>
+            <p>price: {item.price}</p>
+            <div className="item-control">
+              <button className="cart-add" onClick={() => addItem(item)}>+</button>
+              <button className="cart-remove" onClick={() => removeItem(item.id)}>-</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button onClick={clearCart} className="cart-button">Clear Cart</button>
+      <button onClick={proceedToOrder} className="cart-button">Proceed to Order</button>
     </div>
   );
 }

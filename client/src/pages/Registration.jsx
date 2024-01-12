@@ -3,6 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import "./Css/Register.css";
+
+
 
 function Registration() {
   const navigate = useNavigate();
@@ -41,41 +44,45 @@ function Registration() {
       });
   };
   return (
-    <div>
+    <div  className="body-container">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label> First Name: </label>
+
+        <div className="input-group">   <label> First Name: </label>
           <ErrorMessage name="first_name" component="span" />
           <Field
             id="first_name"
             name="first_name"
             placeholder="(Ex. John123...)"
-          />
-
-          <label> Last Name: </label>
+          /> </div>
+        
+        <div className="input-group">  <label> Last Name: </label>
           <ErrorMessage name="last_name" component="span" />
           <Field id="last_name" name="last_name" placeholder="(Ex. Doe...)" />
+ </div>
+         
 
-          <label> Email: </label>
+ <div className="input-group">   <label> Email: </label>
           <ErrorMessage name="email" component="span" />
           <Field id="email" name="email" placeholder="(exdoe@gmail.com)" />
-
-          <label> Address: </label>
+ </div>
+ <div className="input-group">  <label> Address: </label>
           <ErrorMessage name="address" component="span" />
           <Field
             id="address"
             name="address"
             placeholder="(Ex. 123 Main St...)"
-          />
-          <label> ZIP: </label>
+          />  </div>
+        
+        <div className="input-group">  <label> ZIP: </label>
           <ErrorMessage name="zip" component="span" />
-          <Field id="zip" name="zip" placeholder="(Ex. 12345...)" />
-
-          <label> Password: </label>
+          <Field id="zip" name="zip" placeholder="(Ex. 12345...)" /> </div>
+         
+          <div className="input-group"> <label> Password: </label>
           <ErrorMessage name="password" component="span" />
           <Field
             autoComplete="off"
@@ -83,12 +90,13 @@ function Registration() {
             id="inputCreatePost"
             name="password"
             placeholder="Your Password ..."
-          />
+          /> </div>
+          
 
           <button type="submit"> Register </button>
           
-          <Link to="/registerrestaurant">
-          <button>Register a Restaurant</button>
+          <Link to="/registerrestaurant" className="link-to-register">
+          <button>Register a Restaurant Instead</button>
           </Link>
         </Form>
       </Formik>

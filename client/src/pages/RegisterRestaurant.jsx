@@ -2,7 +2,9 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./Css/Register.css";
+
 
 function Registration() {
   const navigate = useNavigate();
@@ -41,22 +43,22 @@ function Registration() {
       });
   };
   return (
-    <div>
+    <div className="body-container">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
-          <label>Name: </label>
+        <div className="input-group"> <label>Name: </label>
           <ErrorMessage name="name" component="span" />
-          <Field id="name" name="name" placeholder="(Ex. John123...)" />
-
-          <label> Email: </label>
+          <Field id="name" name="name" placeholder="(Ex. John123...)" /> </div>
+         
+          <div className="input-group"> <label> Email: </label>
           <ErrorMessage name="email" component="span" />
-          <Field id="email" name="email" placeholder="(exdoe@gmail.com)" />
-
-          <label> Password: </label>
+          <Field id="email" name="email" placeholder="(exdoe@gmail.com)" /> </div>
+         
+          <div className="input-group"><label> Password: </label>
           <ErrorMessage name="password" component="span" />
           <Field
             autoComplete="off"
@@ -64,49 +66,55 @@ function Registration() {
             id="password"
             name="password"
             placeholder="Your Password ..."
-          />
-
-          <label> Address: </label>
+          /> </div>
+          
+          <div className="input-group"> <label> Address: </label>
           <ErrorMessage name="address" component="span" />
           <Field
             id="address"
             name="address"
             placeholder="(Ex. 123 Main St...)"
-          />
-
-          <label> delievery_radius: </label>
+          /> </div>
+         
+         <div className="input-group">  <label> delievery_radius: </label>
           <ErrorMessage name="delivery_radius" component="span" />
           <Field
             id="delivery_radius"
             name="delivery_radius"
             placeholder="(Ex. 12345...)"
-          />
-
-          <label> Description: </label>
+          /> </div>
+        
+        <div className="input-group">  <label> Description: </label>
           <ErrorMessage name="description" component="span" />
           <Field
             id="description"
             name="description"
             placeholder="(Ex. 123 Main St...)"
-          />
-
-          <label> Opening hours: </label>
+          /></div>
+         
+         <div className="input-group"><label> Opening hours: </label>
           <ErrorMessage name="address" component="span" />
           <Field
             id="opening_hours"
             name="opening_hours"
             placeholder="(Ex. 123 Main St...)"
-          />
-
-          <label> Closing hours: </label>
+          /> </div>
+          
+          <div className="input-group">  <label> Closing hours: </label>
           <ErrorMessage name="address" component="span" />
           <Field
             id="closing_hours"
             name="closing_hours"
             placeholder="(Ex. 123 Main St...)"
           />
+ </div>
 
-          <button type="submit"> Register </button>
+          <button type="submit" > Register </button>
+
+          <Link to="/registration" className="link-to-register">
+          <button>Register a Customer Instead</button>
+          </Link>
+
         </Form>
       </Formik>
     </div>
