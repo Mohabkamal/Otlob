@@ -52,7 +52,30 @@ function Home() {
         // setRestaurants(filteredRestaurants);
 
         if (Array.isArray(response.data)) {
-          setRestaurants(response.data);
+          const filteredRestaurants = response.data.filter((restaurant) => {
+            try {
+              const deliveryRadiusArray = restaurant.delivery_radius.split(",").map(item => item.replace(/^"|"$/g, '').trim());
+              console.log("Customer Zip Code:", customer?.zip);
+              console.log("Delivery Radius Array:", deliveryRadiusArray);
+          
+              if (Array.isArray(deliveryRadiusArray)) {
+                // without quotes for comparison
+                const customerZip = customer?.zip.toString();
+          
+                const includesCustomerZip = deliveryRadiusArray.includes(customerZip);
+                console.log("Includes Customer Zip:", includesCustomerZip);
+          
+                return includesCustomerZip;
+              } else {
+                console.error("Invalid delivery_radius format:", restaurant.delivery_radius);
+                return false; // Exclude restaurants with invalid delivery_radius
+              }
+            } catch (error) {
+              console.error("Error parsing delivery_radius:", error);
+              return false; // Exclude restaurants with invalid delivery_radius
+            }
+          });
+          setRestaurants(filteredRestaurants);
         } else {
           console.error(
             "Invalid data format for restaurants:",
@@ -63,7 +86,7 @@ function Home() {
         console.error("Error fetching all restaurants:", error);
       }
     };
-
+  
     fetchAllRestaurants();
   }, [customer]);
 

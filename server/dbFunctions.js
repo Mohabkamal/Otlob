@@ -21,7 +21,7 @@ const insertRestaurant = (
       password,
       opening_hours,
       closing_hours,
-      delivery_radius,
+      JSON.stringify(delivery_radius),
       description,
       image_url,
       email

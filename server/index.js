@@ -59,7 +59,8 @@ app.post("/api/insertRestaurant", (req, res) => {
     email,
   } = req.body;
 
-  // Call the insertRestaurant function
+  const deliveryRadiusArray = delivery_radius.split(",").map(zip => zip.trim());
+  
   insertRestaurant(
     name,
     address,

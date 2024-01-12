@@ -76,13 +76,15 @@ function Registration() {
             placeholder="(Ex. 123 Main St...)"
           /> </div>
          
-         <div className="input-group">  <label> delievery_radius: </label>
-          <ErrorMessage name="delivery_radius" component="span" />
-          <Field
-            id="delivery_radius"
-            name="delivery_radius"
-            placeholder="(Ex. 12345...)"
-          /> </div>
+         <div className="input-group">
+  <label>Delivery Radius (Comma-separated zip codes): </label>
+  <ErrorMessage name="delivery_radius" component="span" />
+  <Field
+    id="delivery_radius"
+    name="delivery_radius"
+    placeholder="(Ex. 12345,67890,...)"
+  />
+</div>
         
         <div className="input-group">  <label> Description: </label>
           <ErrorMessage name="description" component="span" />
