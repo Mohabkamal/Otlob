@@ -22,6 +22,7 @@ const {
   getRestaurantPassword,
   getItemsForRestaurantId,
   getRestaurant,
+  getCustomerOrders,
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -212,6 +213,20 @@ app.get("/api/getItemsForRestaurantId/:id", (req, res) => {
     } else {
       // Respond to the client with the retrieved items
       res.json(items);
+    }
+  });
+});
+
+// Query all orders for a specific customer
+app.post("/api/getCustomerOrders", (req, res) => {
+  // Extract data from the request body
+  const { customer_id } = req.body;
+  getCustomerOrders(customer_id, (err, orders) => {
+    if (err) {
+      console.error("Error:", err);
+      // res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      res.json({ orders });
     }
   });
 });

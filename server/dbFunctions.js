@@ -263,6 +263,24 @@ const getItemsForRestaurantId = (restaurantId, callback) => {
     }
   });
 };
+//get all orders for a specific customer by id
+const getCustomerOrders = (customer_id, callback) => {
+  const query = "SELECT * FROM orders WHERE customer_id = ?";
+
+  db.all(query, [customer_id], (err, rows) => {
+    if (err) {
+      console.error("Error querying orders for customer:", err.message);
+      if (callback) {
+        callback(err, null);
+      }
+    } else {
+      console.log("Orders for customer:", rows);
+      if (callback) {
+        callback(null, rows);
+      }
+    }
+  });
+};
 
 
 module.exports = {
@@ -279,7 +297,8 @@ module.exports = {
   getCustomer,
   getRestaurantPassword,
   getItemsForRestaurantId,
-  getRestaurant
+  getRestaurant,
+  getCustomerOrders,
 };
 
 // Perform operations
@@ -299,24 +318,5 @@ module.exports = {
  //getAllRestaurants();
 // Close the database connection
 //db.close();
-
-
-// Usage of Promises
-// getCustomer("test11@")
-//   .then((customer) => {
-//     console.log("Customer:", customer);
-//   })
-//   .catch((err) => {
-//     console.error("Error getting customer:", err);
-//   });
-
-//  getRestaurant("rest@email.com")
-//    .then((restaurant) => {
-//      console.log("Restaurant:", restaurant);
-//    })
-//    .catch((err) => {
-//      console.error("Error getting restaurant:", err);
-//    });
-
-
+// getAllOrders()
 
