@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function Cart() {
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, addItem, removeItem } = useCart();
   const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState([]);
   const [customer, setCustomer] = useState(null);
@@ -90,6 +90,8 @@ function Cart() {
           <p>name: {item.name}</p>
           <p>quantity: {item.quantity}</p>
           <p>price: {item.price}</p>
+          <button onClick={() => addItem(item)}>+</button>
+          <button onClick={() => removeItem(item.id)}>-</button>
         </div>
       ))}
       <button onClick={clearCart}>Clear Cart</button>
