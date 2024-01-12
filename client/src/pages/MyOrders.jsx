@@ -52,7 +52,7 @@ function MyOrders() {
 
       getAllOrders();
     }
-  }, [customer]);
+  }, [customer,orders.state]);
  
 return (
   <div className="orders-container">

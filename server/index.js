@@ -23,6 +23,9 @@ const {
   getItemsForRestaurantId,
   getRestaurant,
   getCustomerOrders,
+  getRestaurantOrders,
+  updateOrderStatus,
+  updateItem
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -218,16 +221,56 @@ app.get("/api/getItemsForRestaurantId/:id", (req, res) => {
   });
 });
 
+
+
 // Query all orders for a specific customer
 app.post("/api/getCustomerOrders", (req, res) => {
-  // Extract data from the request body
   const { customer_id } = req.body;
   getCustomerOrders(customer_id, (err, orders) => {
     if (err) {
       console.error("Error:", err);
-      // res.status(500).json({ error: "Internal Server Error" });
     } else {
       res.json({ orders });
+    }
+  });
+});
+
+// Query all orders for a specific restaurant
+app.post("/api/getRestaurantOrders", (req, res) => {
+  const { restaurant_id } = req.body;
+  getRestaurantOrders(restaurant_id, (err, orders) => {
+    if (err) {
+      console.error("Error:", err);
+    } else {
+      res.json({ orders });
+    }
+  });
+});
+
+app.post('/api/updateOrderStatus', (req, res) => {
+  const { orderId, newStatus } = req.body;
+
+  updateOrderStatus(orderId, newStatus, (err) => {
+    if (err) {
+      console.error('Error updating order status:', err.message);
+      res.status(500).send('Error updating order status');
+    } else {
+      res.send('Order status updated successfully');
+    }
+  });
+});
+
+
+app.put('/api/updateItem', (req, res) => {
+  const updatedItem = req.body;
+
+  // Call your updateItem function passing the updatedItem
+  updateItem(updatedItem, (err) => {
+    if (err) {
+      console.error('Error updating item:', err.message);
+      res.status(500).send('Error updating item');
+    } else {
+      res.send('Item updated successfully');
     }
   });
 });

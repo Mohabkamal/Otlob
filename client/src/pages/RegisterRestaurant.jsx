@@ -86,6 +86,7 @@ function Registration() {
   />
 </div>
         
+        
         <div className="input-group">  <label> Description: </label>
           <ErrorMessage name="description" component="span" />
           <Field

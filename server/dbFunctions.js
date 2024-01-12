@@ -286,6 +286,61 @@ const getCustomerOrders = (customer_id, callback) => {
 };
 
 
+const getRestaurantOrders = (restaurant_id, callback) => {
+  const query = "SELECT * FROM orders WHERE restaurant_id = ?";
+
+  db.all(query, [restaurant_id], (err, rows) => {
+    if (err) {
+      console.error("Error querying orders for restaurant:", err.message);
+      if (callback) {
+        callback(err, null);
+      }
+    } else {
+      console.log("Orders for restaurant:", rows);
+      if (callback) {
+        callback(null, rows);
+      }
+    }
+  });
+};
+
+const updateOrderStatus = (orderId, newStatus, callback) => {
+  db.run('UPDATE orders SET state = ? WHERE id = ?', [newStatus, orderId], (err) => {
+    if (err) {
+      console.error('Error updating order status:', err.message);
+      callback(err);
+    } else {
+      console.log('Order status updated successfully');
+      callback(null);
+    }
+  });
+};
+
+const updateItem = (updatedItem, callback) => {
+  const { id, selectedField, newValue } = updatedItem;
+
+  // Validate that the field is allowed to be updated, e.g., prevent updating the ID
+  const allowedFields = ['name', 'price', 'description', 'category', 'image_url', 'restaurant_id'];
+  if (!allowedFields.includes(field)) {
+    const error = new Error(`Updating field "${field}" is not allowed`);
+    return callback(error);
+  }
+
+  // Dynamically construct the SQL query
+  const query = `UPDATE items SET ${field} = ? WHERE id = ?`;
+
+  db.run(query, [value, id], (err) => {
+    if (err) {
+      console.error('Error updating item:', err.message);
+      callback(err);
+    } else {
+      console.log('Item updated successfully');
+      callback(null);
+    }
+  });
+};
+
+
 module.exports = {
   insertRestaurant,
   insertCustomer,
@@ -302,6 +357,9 @@ module.exports = {
   getItemsForRestaurantId,
   getRestaurant,
   getCustomerOrders,
+  getRestaurantOrders,
+  updateOrderStatus,
+  updateItem
 };
 
 // Perform operations

@@ -10,6 +10,7 @@ import LoginRestaurant from "./pages/LoginRestaurant";
 import Menu from "./pages/Menu";
 import MyOrders from "./pages/MyOrders";
 import Admin from "./pages/Admin";
+import RestaurantOrders from "./pages/RestaurantOrders";
 import { CartProvider } from './CartContext/CartContext.jsx';
 
 
@@ -25,12 +26,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/registerrestaurant" element={<RegisterRestaurant />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/LoginRestaurant" element={<LoginRestaurant />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/loginRestaurant" element={<LoginRestaurant />} />
           <Route path="/menu/:id" element={<Menu />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/MyOrders" element={<MyOrders />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/myorders" element={<MyOrders />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/restaurantorders" element={<RestaurantOrders />} />
         </Routes>
       </Router>
     </div>

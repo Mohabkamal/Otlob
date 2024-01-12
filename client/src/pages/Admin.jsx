@@ -9,6 +9,9 @@ function Admin() {
 
   const [restaurant, setRestaurant] = useState([]);
   const RestaurantEmail = localStorage.getItem("RestaurantEmail");
+  const [items, setItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedField, setSelectedField] = useState("");
 
   const initialValues = {
     name: "",
@@ -50,10 +53,40 @@ const validationSchema = Yup.object({
     fetchRestaurantData();
   }, [RestaurantEmail]);
   
+
+
   
 
+      useEffect(() => {
+        const fetchRestaurantData = async () => {
+          try {
+            const response = await axios.post(
+              "http://localhost:3000/api/getRestaurant",
+              { email: RestaurantEmail }
+            );
+            setRestaurant(response.data.restaurant);
+          } catch (error) {
+            console.error("Error fetching restaurant data:", error);
+          }
+        };
+    
+        const fetchAllItems = async () => {
+          try {
+            const response = await axios.get(
+              "http://localhost:3000/api/getItemsForRestaurantId/" +
+                restaurant.id
+            );
+            setItems(response.data);
+          } catch (error) {
+            console.error("Error fetching items:", error);
+          }
+        };
+    
+        fetchRestaurantData();
+        fetchAllItems();
+      }, [RestaurantEmail, restaurant.id]);
 
-      const onSubmit = (data) => {
+    const onSubmit = (data) => {
 
         data.restaurant_id = restaurant.id;
 
@@ -70,7 +103,42 @@ const validationSchema = Yup.object({
       };
 
       
+      const handleItemClick = (item) => {
+        setSelectedItem(item);
+      };
+
+      const handleDeleteItem = (itemId) => {
+
+      };
+
+      const handleEditItemField = (field) => {
+        setSelectedField(field);
+      };
+
+
+      const handleUpdateItem = (newValue) => {
+        if (selectedField && selectedItem) {
+          const updatedItem = {
+            id: selectedItem.id,
+            [selectedField]: newValue,
+          };
+    
+          axios
+            .put("http://localhost:3000/api/updateItem", updatedItem)
+            .then((response) => {
+              console.log("Item updated successfully", response.data);
+              setSelectedField("");
+            })
+            .catch((error) => {
+              console.error("Error updating item:", error);
+            });
+        }
+      };
+
+
   return (
+<>
+
     <div className="addingNewProdct">
         <div className="addingNewProdcttitle">
           Fill Form to add a new Product
@@ -140,8 +208,83 @@ const validationSchema = Yup.object({
           </Form>
         </Formik>
       </div>
+      <div className="all-items-container">
+        <h3>All Items</h3>
+        <ul>
+          {items.map((item) => (
+            <li
+              key={item.id}
+              className={selectedItem && selectedItem.id === item.id ? "selected-item" : ""}
+            >
+              <span
+                onClick={() => handleItemClick(item)}
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+              >
+                {item.name}
+              </span>
+              {selectedItem && selectedItem.id === item.id && (
+                <>
+                  <button onClick={() => handleDeleteItem(item.id)}>
+                    Delete Item
+                  </button>
+                </>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
 
-  )
+      {selectedItem && (
+        <div className="selected-item-details">
+          <h3>Edit Item: {selectedItem.name}</h3>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(data) => handleUpdateItem(data[selectedField])}
+            validationSchema={validationSchema}
+          >
+            <Form className="formContainer">
+              <label>Select Field to Edit:</label>
+              <Field
+                as="select"
+                id="fieldSelector"
+                name="fieldSelector"
+                onChange={(e) => setSelectedField(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select a field
+                </option>
+                {Object.keys(selectedItem).map((field) => (
+                  <option key={field} value={field}>
+                    {field}
+                  </option>
+                ))}
+              </Field>
+
+              {/* Show corresponding input field based on the selected field */}
+              {selectedField && (
+                <>
+                  <label htmlFor={selectedField}>New {selectedField}:</label>
+                  <ErrorMessage
+                    name={selectedField}
+                    component="span"
+                    style={{ color: "red" }}
+                  />
+                  <Field
+                    id={selectedField}
+                    name={selectedField}
+                    placeholder={`New ${selectedField}`}
+                  />
+                </>
+              )}
+
+              <button onClick={() => handleEditItemField("")}>Cancel Edit</button>
+              <button type="submit">Update</button>
+            </Form>
+          </Formik>
+        </div>
+      )}
+    </>
+  );
 }
 
-export default Admin
+export default Admin;
