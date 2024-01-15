@@ -213,10 +213,7 @@ const validationSchema = Yup.object({
             <Field id="AddingProduct" name="price" placeholder=" € " />
 
 
-            <label className="attachment-label"> Picture Url in Cloud:</label>
-            <div className="urlExample">
-              Url Ex. https://drive.google.com/uc?id= "put id here"
-            </div>
+            <label className="attachment-label"> Picture Url:</label>
             <ErrorMessage
               name="image_url"
               component="span"
@@ -225,7 +222,7 @@ const validationSchema = Yup.object({
             <Field
               id="AddingProduct"
               name="image_url"
-              placeholder="(https://photo.com)"
+              placeholder="(https://example.com)"
               style={{ width: "80%" }}
             />
             <button type="submit">Add</button>
