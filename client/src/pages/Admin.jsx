@@ -21,10 +21,10 @@ function Admin() {
   };
 
   const [categoryTypes, setCategoryTypes] = useState([
-    "breakfast",
-    "lunch",
-    "dinner",
-    "drinks",
+    "Appetizer",
+    "Main dish",
+    "Dessert",
+    "Drink",
   ]);
   
 const validationSchema = Yup.object({
@@ -166,14 +166,38 @@ const validationSchema = Yup.object({
             />
             <Field id="AddingProduct" name="name" placeholder="(Ex. Burger, Pizza ...)" style={{ width: "300px" }} 
             />
-            <label htmlFor="type">Category:</label>
+
+            {/* <label htmlFor="type">Category:</label>
             <ErrorMessage
               name="category"
               component="span"
               style={{ color: "red" }}
             />
             <Field  id="category" name="category" placeholder="Appetizer, Main dish, Dessert, Drink"  style={{ width: "300px" }} >
+            </Field> */}
+
+          <label htmlFor="category">Category:</label>
+            <ErrorMessage
+              name="category"
+              component="span"
+              style={{ color: "red" }}
+            />
+            <Field
+              as="select"
+              id="category"
+              name="category"
+              style={{ width: "300px" }}
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              {categoryTypes.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
             </Field>
+
 
             <label> Description:</label>
             <ErrorMessage
