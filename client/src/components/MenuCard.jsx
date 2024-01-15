@@ -1,14 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+
 import "./MenuCard.css";
 import { useCart } from "../CartContext/CartContext.jsx";
 
 
 export const MenuCard = ({ item  }) => {
- // eslint-disable-next-line 
 
  const { addItem } = useCart();
-
 
  const handleAddToCart = () => {
   console.log("item menucard",item)
@@ -20,7 +17,7 @@ export const MenuCard = ({ item  }) => {
     <div className="menu-card">
       <img
         className="menu-image"
-        src={item.image}
+        src={item.image_url}
         alt={item.name}
       />
 

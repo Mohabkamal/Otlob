@@ -17,7 +17,7 @@ function Admin() {
     category: "",
     description: "",
     price: "",
-    imageUrl: "",
+    image_url: "",
   };
 
   const [categoryTypes, setCategoryTypes] = useState([
@@ -167,15 +167,6 @@ const validationSchema = Yup.object({
             <Field id="AddingProduct" name="name" placeholder="(Ex. Burger, Pizza ...)" style={{ width: "300px" }} 
             />
 
-            {/* <label htmlFor="type">Category:</label>
-            <ErrorMessage
-              name="category"
-              component="span"
-              style={{ color: "red" }}
-            />
-            <Field  id="category" name="category" placeholder="Appetizer, Main dish, Dessert, Drink"  style={{ width: "300px" }} >
-            </Field> */}
-
           <label htmlFor="category">Category:</label>
             <ErrorMessage
               name="category"
@@ -227,13 +218,13 @@ const validationSchema = Yup.object({
               Url Ex. https://drive.google.com/uc?id= "put id here"
             </div>
             <ErrorMessage
-              name="imageUrl"
+              name="image_url"
               component="span"
               style={{ color: "red" }}
             />
             <Field
               id="AddingProduct"
-              name="imageUrl"
+              name="image_url"
               placeholder="(https://photo.com)"
               style={{ width: "80%" }}
             />
