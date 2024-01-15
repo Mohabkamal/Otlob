@@ -45,13 +45,13 @@ const Header = () => {
             <a href="/login" style={linkStyle}>
               Login
             </a>
-            <a href="/restaurantlogin" style={linkStyle}>
+            <a href="/loginRestaurant" style={linkStyle}>
               Restaurant Login
             </a>
             <a href="/registration" style={linkStyle}>
               Register
             </a>
-            <a href="/restaurantregister" style={linkStyle}>
+            <a href="/registerrestaurant" style={linkStyle}>
               Restaurant Register
             </a>
             <a href="/myorders" style={linkStyle}>
@@ -62,9 +62,6 @@ const Header = () => {
             </a>
             <a href="/admin" style={linkStyle}>
               Admin
-            </a>
-            <a href="/menu" style={linkStyle}>
-              Menu
             </a>
           </nav>
         </div>
