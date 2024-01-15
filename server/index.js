@@ -263,7 +263,7 @@ app.post('/api/updateOrderStatus', (req, res) => {
 
 app.put('/api/updateItem', (req, res) => {
   const updatedItem = req.body;
-
+  console.log('indexxxxxxxxxx  item:', updatedItem);
   // Call your updateItem function passing the updatedItem
   updateItem(updatedItem, (err) => {
     if (err) {

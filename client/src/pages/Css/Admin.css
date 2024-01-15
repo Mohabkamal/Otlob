@@ -1,0 +1,100 @@
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .delete-button {
+    padding: 10px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .addingNewProdct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+  
+  .addingNewProdcttitle {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin: 0 auto; /* Center the form */
+  }
+  
+  .selected-item-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+  }
+  
+  .selected-item-details h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .selected-item-details label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .selected-item-details span {
+    display: block;
+    margin-top: 5px;
+  }
+  
+  .selected-item-details select,
+  .selected-item-details input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  .selected-item-details button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff; /* Blue color for the Update button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .selected-item-details button.delete-button {
+    background-color: red; /* Red color for the Delete button */
+  }
+  
+  .selected-item-details button:hover {
+    background-color: #0056b3; /* Darker blue color on hover for the Update button */
+  }
+  
+  .selected-item-details button.delete-button:hover {
+    background-color: #d93b3b; /* Darker red color on hover for the Delete button */
+  }
+  

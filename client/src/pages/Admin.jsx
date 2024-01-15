@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import "./Css/Register.css";
-
+import "./Css/Admin.css";
 
 function Admin() {
 
@@ -54,9 +53,6 @@ const validationSchema = Yup.object({
   }, [RestaurantEmail]);
   
 
-
-  
-
       useEffect(() => {
         const fetchRestaurantData = async () => {
           try {
@@ -86,7 +82,7 @@ const validationSchema = Yup.object({
         fetchAllItems();
       }, [RestaurantEmail, restaurant.id]);
 
-    const onSubmit = (data) => {
+    const onAddSubmit = (data) => {
 
         data.restaurant_id = restaurant.id;
 
@@ -116,13 +112,14 @@ const validationSchema = Yup.object({
       };
 
 
-      const handleUpdateItem = (newValue) => {
+      const handleUpdateItem = (data) => {
         if (selectedField && selectedItem) {
           const updatedItem = {
             id: selectedItem.id,
-            [selectedField]: newValue,
+            field: selectedField,
+            newValue: data[selectedField],
           };
-    
+     console.log("Admin >> updatedItem ",updatedItem )
           axios
             .put("http://localhost:3000/api/updateItem", updatedItem)
             .then((response) => {
@@ -145,7 +142,7 @@ const validationSchema = Yup.object({
         </div>
         <Formik
           initialValues={initialValues}
-          onSubmit={onSubmit}
+          onSubmit={onAddSubmit}
           validationSchema={validationSchema}
         >
           <Form className="formContainer">
@@ -222,67 +219,60 @@ const validationSchema = Yup.object({
               >
                 {item.name}
               </span>
-              {selectedItem && selectedItem.id === item.id && (
-                <>
-                  <button onClick={() => handleDeleteItem(item.id)}>
-                    Delete Item
-                  </button>
-                </>
-              )}
             </li>
           ))}
         </ul>
       </div>
 
-      {selectedItem && (
-        <div className="selected-item-details">
-          <h3>Edit Item: {selectedItem.name}</h3>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(data) => handleUpdateItem(data[selectedField])}
-            validationSchema={validationSchema}
-          >
-            <Form className="formContainer">
-              <label>Select Field to Edit:</label>
-              <Field
-                as="select"
-                id="fieldSelector"
-                name="fieldSelector"
-                onChange={(e) => setSelectedField(e.target.value)}
-              >
-                <option value="" disabled>
-                  Select a field
-                </option>
-                {Object.keys(selectedItem).map((field) => (
-                  <option key={field} value={field}>
-                    {field}
-                  </option>
-                ))}
-              </Field>
+    {selectedItem && (
+  <div className="selected-item-details">
+    <h3>Selected Item: {selectedItem.name}</h3>
+    <Formik
+     initialValues={initialValues}
+      onSubmit={handleUpdateItem}
 
-              {/* Show corresponding input field based on the selected field */}
-              {selectedField && (
-                <>
-                  <label htmlFor={selectedField}>New {selectedField}:</label>
-                  <ErrorMessage
-                    name={selectedField}
-                    component="span"
-                    style={{ color: "red" }}
-                  />
-                  <Field
-                    id={selectedField}
-                    name={selectedField}
-                    placeholder={`New ${selectedField}`}
-                  />
-                </>
-              )}
+    >
+      <Form className="formContainer">
+        <label>Select Field to Edit:</label>
+        <Field
+          as="select"
+          id="fieldSelector"
+          name="fieldSelector"
+          onChange={(e) => setSelectedField(e.target.value)}
+        >
+          <option value="" disabled>
+            Select a field
+          </option>
+          {Object.keys(selectedItem).map((field) => (
+            <option key={field} value={field}>
+              {field}
+            </option>
+          ))}
+        </Field>
 
-              <button onClick={() => handleEditItemField("")}>Cancel Edit</button>
-              <button type="submit">Update</button>
-            </Form>
-          </Formik>
-        </div>
-      )}
+        {/* Show corresponding input field based on the selected field */}
+        {selectedField && (
+          <>
+            <label htmlFor={selectedField}>New {selectedField}:</label>
+            <ErrorMessage
+              name={selectedField}
+              component="span"
+              style={{ color: "red" }}
+            />
+            <Field
+              id={selectedField}
+              name={selectedField}
+              placeholder={`New ${selectedField}`}
+            />
+          </>
+        )}
+
+  <button type="submit" >Update</button>
+  <button type="button" className="delete-button" onClick={() => handleDeleteItem(selectedItem.id)}>Delete</button>
+      </Form>
+    </Formik>
+  </div>
+)}
     </>
   );
 }

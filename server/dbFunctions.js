@@ -316,26 +316,30 @@ const updateOrderStatus = (orderId, newStatus, callback) => {
   });
 };
 
-const updateItem = (updatedItem, callback) => {
-  const { id, selectedField, newValue } = updatedItem;
+const updateItem = (updatedItem) => {
+  console.log('dbbb finctions item:', updatedItem);
+  const { id, field, newValue } = updatedItem;
 
-  // Validate that the field is allowed to be updated, e.g., prevent updating the ID
+  console.log('Updating item:', updatedItem);
+
   const allowedFields = ['name', 'price', 'description', 'category', 'image_url', 'restaurant_id'];
   if (!allowedFields.includes(field)) {
     const error = new Error(`Updating field "${field}" is not allowed`);
-    return callback(error);
+    //return callback(error);
   }
 
   // Dynamically construct the SQL query
   const query = `UPDATE items SET ${field} = ? WHERE id = ?`;
 
-  db.run(query, [value, id], (err) => {
+  console.log('SQL Query:', query);
+
+  db.run(query, [newValue, id], (err) => {
     if (err) {
       console.error('Error updating item:', err.message);
-      callback(err);
+     // callback(err);
     } else {
       console.log('Item updated successfully');
-      callback(null);
+      //callback(null);
     }
   });
 };
