@@ -172,7 +172,7 @@ const validationSchema = Yup.object({
               component="span"
               style={{ color: "red" }}
             />
-            <Field  id="category" name="category" placeholder="(Ex. Breakfast, Dinner ...)" style={{ width: "300px" }} >
+            <Field  id="category" name="category" placeholder="Appetizer, Main dish, Dessert, Drink"  style={{ width: "300px" }} >
             </Field>
 
             <label> Description:</label>

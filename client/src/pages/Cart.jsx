@@ -86,9 +86,9 @@ function Cart() {
       <div className="cart-items-container">
         {cart.map((item) => (
           <div className="cart-item" key={item.id}>
-            <p>name: {item.name}</p>
-            <p>quantity: {item.quantity}</p>
-            <p>price: {item.price}</p>
+            <p>Name: {item.name}</p>
+            <p>Quantity: {item.quantity}</p>
+            <p>Price: {item.price} $</p>
             <div className="item-control">
               <button className="cart-add" onClick={() => addItem(item)}>+</button>
               <button className="cart-remove" onClick={() => removeItem(item.id)}>-</button>

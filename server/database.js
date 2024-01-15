@@ -15,7 +15,7 @@ db.serialize(() => {
       delivery_radius TEXT NOT NULL,
       description TEXT NOT NULL,
       image_url TEXT,
-      email TEXT NOT NULL
+      email TEXT NOT NULL unique
     )
   `);
 
@@ -26,7 +26,7 @@ db.serialize(() => {
       name TEXT NOT NULL,
       price REAL NOT NULL,
       description TEXT NOT NULL,
-      category TEXT NOT NULL,
+      category TEXT NOT NULL check (category in ("Appetizer", "Main dish", "Dessert", " Drink")) , 
       image_url TEXT,
       restaurant_id INTEGER NOT NULL,
       FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE 
@@ -44,7 +44,7 @@ db.serialize(() => {
       address TEXT NOT NULL,
       password TEXT NOT NULL,
       zip INTEGER NOT NULL check (zip between 47057 and 47059),
-      email TEXT NOT NULL
+      email TEXT NOT NULL unique
     )
   `);
 

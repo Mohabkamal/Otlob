@@ -25,7 +25,8 @@ export const MenuCard = ({ item  }) => {
       />
 
       <h2 className="menu-name">{item.name}</h2>
-      <h2 className="menu-name">{item.price}</h2>
+      <h2 className="menu-name">{item.price} $</h2>
+      <h2 className="menu-name">{item.description}</h2>
 
       <div className="menu-footer">
         <button

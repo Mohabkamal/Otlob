@@ -381,7 +381,7 @@ module.exports = {
 
 // Perform operations
 // insertOrder("123", "Johnggg Doe", "John Doe", "470", "123");
-// getAllOrders();
+getAllItems();
 
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
