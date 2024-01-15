@@ -39,7 +39,7 @@ function Menu() {
       <div className="menu-items">
         {Object.keys(categoryOrder).map((category) => (
           <div key={category}>
-            <h3>{category}s</h3>
+            <h3 style={{ color: 'red', fontWeight: 'bold' }}>{category}s</h3>
             <div className="menu-items-grid">
               {sortedItems
                 .filter((item) => item.category === category)

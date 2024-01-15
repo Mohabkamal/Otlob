@@ -19,7 +19,7 @@ function Admin() {
     price: "",
     image_url: "",
   };
-
+// eslint-disable-next-line
   const [categoryTypes, setCategoryTypes] = useState([
     "Appetizer",
     "Main dish",
@@ -105,9 +105,10 @@ const validationSchema = Yup.object({
         setSelectedItem(item);
       };
 
-      const handleEditItemField = (field) => {
-        setSelectedField(field);
-      };
+
+      // const handleEditItemField = (field) => {
+      //   setSelectedField(field);
+      // };
 
       const handleDeleteItem = (itemId) => {
         axios

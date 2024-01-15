@@ -68,6 +68,7 @@ function Cart() {
       console.log("customer",customer)
       const itemsJsonString = JSON.stringify(cart);
 
+      // eslint-disable-next-line
       const response = await axios.post('http://localhost:3000/api/insertOrder', {
         state:"Received",
         restaurant_id: restaurant.id,
