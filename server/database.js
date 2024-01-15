@@ -29,7 +29,7 @@ db.serialize(() => {
       category TEXT NOT NULL,
       image_url TEXT,
       restaurant_id INTEGER NOT NULL,
-      FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
+      FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE 
     )
   `);
 
@@ -43,7 +43,7 @@ db.serialize(() => {
       last_name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
-      zip INTEGER NOT NULL,
+      zip INTEGER NOT NULL check (zip between 47057 and 47059),
       email TEXT NOT NULL
     )
   `);

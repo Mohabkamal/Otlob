@@ -344,6 +344,18 @@ const updateItem = (updatedItem) => {
   });
 };
 
+const deleteItem = (itemId, callback) => {
+  db.run('DELETE FROM items WHERE id = ?', [itemId], (err) => {
+    if (err) {
+      console.error('Error deleting item:', err.message);
+      callback(err);
+    } else {
+      console.log('Item deleted successfully');
+      callback(null);
+    }
+  });
+};
+
 
 module.exports = {
   insertRestaurant,
@@ -363,7 +375,8 @@ module.exports = {
   getCustomerOrders,
   getRestaurantOrders,
   updateOrderStatus,
-  updateItem
+  updateItem,
+  deleteItem,
 };
 
 // Perform operations
@@ -375,7 +388,7 @@ module.exports = {
 
 // insertOrder("preparing", "date", "tasty", "2", "8", "{dsfdfsdfsdfsdfsdfsdfs}")
  //getAllRestaurants()
- getAllOrders()
+//  getAllOrders()
  //getCustomer("test11@")
 //getRestaurant("rest@email.com")
 //getCustomerPassword("test11@");

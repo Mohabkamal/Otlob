@@ -25,7 +25,8 @@ const {
   getCustomerOrders,
   getRestaurantOrders,
   updateOrderStatus,
-  updateItem
+  updateItem,
+  deleteItem,
 } = require("./dbFunctions.js");
 
 app.use(cors());
@@ -275,6 +276,18 @@ app.put('/api/updateItem', (req, res) => {
   });
 });
 
+app.delete('/api/deleteItem/:itemId', async (req, res) => {
+  const { itemId } = req.params;
+
+  deleteItem(itemId, (err) => {
+    if (err) {
+      console.error('Error deleting item:', err.message);
+      res.status(500).send('Error deleting item');
+    } else {
+      res.send('Item deleted successfully');
+    }
+  });
+});
 
 // Start the server
 app.listen(port, () => {

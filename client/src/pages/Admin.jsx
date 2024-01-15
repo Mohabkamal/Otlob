@@ -82,6 +82,8 @@ const validationSchema = Yup.object({
         fetchAllItems();
       }, [RestaurantEmail, restaurant.id]);
 
+  
+
     const onAddSubmit = (data) => {
 
         data.restaurant_id = restaurant.id;
@@ -103,14 +105,25 @@ const validationSchema = Yup.object({
         setSelectedItem(item);
       };
 
-      const handleDeleteItem = (itemId) => {
-
-      };
-
       const handleEditItemField = (field) => {
         setSelectedField(field);
       };
 
+      const handleDeleteItem = (itemId) => {
+        axios
+          .delete(`http://localhost:3000/api/deleteItem/${itemId}`)
+          .then((response) => {
+            console.log("Item deleted successfully", response.data);
+            setSelectedField("");
+            // If needed, you can update the state or perform other actions here
+          })
+          .catch((error) => {
+            console.error("Error deleting item:", error);
+            // Handle the error, show a message, or perform other actions
+          });
+      };
+      
+      
 
       const handleUpdateItem = (data) => {
         if (selectedField && selectedItem) {
@@ -131,7 +144,6 @@ const validationSchema = Yup.object({
             });
         }
       };
-
 
   return (
 <>
@@ -275,6 +287,6 @@ const validationSchema = Yup.object({
 )}
     </>
   );
-}
+};
 
 export default Admin;
