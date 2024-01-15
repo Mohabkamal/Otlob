@@ -6,6 +6,7 @@ function MyOrders() {
   const [customer, setCustomer] = useState(null);
   const [receivedOrders, setReceivedOrders] = useState([]);
   const [acceptedOrders, setAcceptedOrders] = useState([]);
+ // const [rejectedOrders, setRejectedOrders] = useState([]);
   const [otherOrders, setOtherOrders] = useState([]);
   const userEmail = localStorage.getItem('userEmail');
 
@@ -45,10 +46,10 @@ function MyOrders() {
             return new Date(b.date) - new Date(a.date);
           });
 
-          // Separate orders into categories
           const received = sortedOrders.filter((order) => order.state === 'Received');
           const accepted = sortedOrders.filter((order) => order.state === 'Accepted');
-          const other = sortedOrders.filter((order) => order.state !== 'Received' && order.state !== 'accepted');
+        //  const rejected = sortedOrders.filter((order) => order.state === 'rejected');
+          const other = sortedOrders.filter((order) => order.state !== 'Received' && order.state !== 'Accepted');
 
           setReceivedOrders(received);
           setAcceptedOrders(accepted);
@@ -95,16 +96,23 @@ function MyOrders() {
   );
 
   return (
-    <div className="orders-container">
+    <>
+     <div className="orders-container">
       <h2>Received Orders</h2>
       {receivedOrders.map((order) => renderOrderDetails(order))}
+      </div>
 
+     <div className="orders-container">
       <h2>Accepted Orders</h2>
       {acceptedOrders.map((order) => renderOrderDetails(order))}
+      </div>
 
+      <div className="orders-container">
       <h2>Other Orders</h2>
       {otherOrders.map((order) => renderOrderDetails(order))}
     </div>
+    </>
+   
   );
 }
 
