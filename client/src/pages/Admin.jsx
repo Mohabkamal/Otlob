@@ -24,7 +24,7 @@ function Admin() {
     "Appetizer",
     "Main dish",
     "Dessert",
-    "Drink",
+    " Drink",
   ]);
   
 const validationSchema = Yup.object({

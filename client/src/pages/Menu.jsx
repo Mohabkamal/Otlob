@@ -30,7 +30,7 @@ function Menu() {
       'Appetizer': 1,
       'Main dish': 2,
       'Dessert': 3,
-      'Drink': 4,
+      ' Drink': 4,
     };
 
     const sortedItems = [...items].sort((a, b) => categoryOrder[a.category] - categoryOrder[b.category]);
