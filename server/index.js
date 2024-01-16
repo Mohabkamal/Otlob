@@ -126,10 +126,10 @@ app.post("/api/insertCustomer", (req, res) => {
 // Insert order
 app.post("/api/insertOrder", (req, res) => {
   // Extract data from the request body
-  const { state, restaurant_id, customer_id, items_json, total_price } = req.body;
+  const { state, restaurant_id, customer_id, items_json, total_price, special_request} = req.body;
   const date = new Date().toISOString();
   // Call the inserOrder function
-  insertOrder(state, date, restaurant_id, customer_id, items_json, total_price);
+  insertOrder(state, date, restaurant_id, customer_id, items_json, total_price, special_request);
   // Respond to the client
   res.send("Customer inserted successfully");
 });

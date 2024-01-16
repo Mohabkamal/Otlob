@@ -81,10 +81,10 @@ const insertItem = (
 };
 
 //Insert an order
-const insertOrder = (state, date, restaurant_id, customer_id, items_json, total_price) => {
+const insertOrder = (state, date, restaurant_id, customer_id, items_json, total_price, special_request) => {
   db.run(
-    "INSERT INTO orders (state, date, restaurant_id, customer_id, items_json, total_price) VALUES (?, ?, ?, ?, ?, ?)",
-    [state, date, restaurant_id, customer_id, items_json, total_price],
+    "INSERT INTO orders (state, date, restaurant_id, customer_id, items_json, total_price, special_request) VALUES (?, ?, ?, ?, ?, ?, ?)",
+    [state, date, restaurant_id, customer_id, items_json, total_price, special_request],
     (err) => {
       if (err) {
         console.error("Error inserting order:", err.message);
@@ -381,14 +381,14 @@ module.exports = {
 
 // Perform operations
 // insertOrder("123", "Johnggg Doe", "John Doe", "470", "123");
-getAllItems();
+// getAllItems();
 
 // insertCustomer("alooo Doe", "Johnggg Doe", "addressDoe", "passssss", "470", "xdw@gmail.com");
 //  getAllCustomers();
 
 // insertOrder("preparing", "date", "tasty", "2", "8", "{dsfdfsdfsdfsdfsdfsdfs}")
  //getAllRestaurants()
-//  getAllOrders()
+ getAllOrders()
  //getCustomer("test11@")
 //getRestaurant("rest@email.com")
 //getCustomerPassword("test11@");

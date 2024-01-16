@@ -60,12 +60,15 @@ db.serialize(() => {
       customer_id INTEGER,
       items_json TEXT,
       total_price REAL NOT NULL,
+      special_request TEXT,
       FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
       FOREIGN KEY (customer_id) REFERENCES customers(id)
     )
   `);
   
-  
+
+
+
 });
 
 

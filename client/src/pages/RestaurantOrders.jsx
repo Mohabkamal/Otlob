@@ -136,6 +136,8 @@ const handleUpdateOrderStatus = async (orderId, newStatus) => {
           <p className="no-items">No items found for this order</p>
         )}
       </div>
+      <h4>Special Requests:</h4>
+      <div>{order.special_request} </div>
       <div className="order-info">
         <p>Total Price: {order.total_price} $</p>
       </div>

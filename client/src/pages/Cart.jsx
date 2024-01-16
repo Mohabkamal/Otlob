@@ -8,6 +8,8 @@ function Cart() {
   const navigate = useNavigate();
   const [restaurant, setRestaurant] = useState([]);
   const [customer, setCustomer] = useState(null);
+  const [specialRequest, setSpecialRequest] = useState("");
+
 
   const userEmail = localStorage.getItem("userEmail");
   const RestaurantEmail = localStorage.getItem("RestaurantEmail");
@@ -74,7 +76,8 @@ function Cart() {
         restaurant_id: restaurant.id,
         customer_id: customer.id, 
         items_json: itemsJsonString,
-        total_price : total
+        total_price : total,
+        special_request: specialRequest,
       });
       navigate(`/myorders`);
     } catch (error) {
@@ -97,6 +100,19 @@ function Cart() {
           </div>
         ))}
       </div>
+      
+      <label htmlFor="specialRequest" style={{ display: 'block', marginBottom: '8px' }}>
+      Special Requests:
+      </label>
+      <input
+        type="text"
+        id="specialRequest"
+        value={specialRequest}
+        placeholder="Extra onions, etc...."
+        onChange={(e) => setSpecialRequest(e.target.value)}
+        style={{ width: '100%', padding: '20px', boxSizing: 'border-box' }}
+      />
+
 
       <p>Total Price: ${total.toFixed(2)}</p>
       <button onClick={clearCart} className="cart-button">Clear Cart</button>
