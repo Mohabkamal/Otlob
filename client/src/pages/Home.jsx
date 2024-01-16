@@ -55,8 +55,8 @@ function Home() {
           const filteredRestaurants = response.data.filter((restaurant) => {
             try {
               const deliveryRadiusArray = restaurant.delivery_radius.split(",").map(item => item.replace(/^"|"$/g, '').trim());
-              console.log("Customer Zip Code:", customer?.zip);
-              console.log("Delivery Radius Array:", deliveryRadiusArray);
+              // console.log("Customer Zip Code:", customer?.zip);
+              // console.log("Delivery Radius Array:", deliveryRadiusArray);
           
               if (Array.isArray(deliveryRadiusArray)) {
                 // without quotes for comparison

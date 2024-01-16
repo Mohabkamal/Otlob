@@ -43,7 +43,7 @@ db.serialize(() => {
       last_name TEXT NOT NULL,
       address TEXT NOT NULL,
       password TEXT NOT NULL,
-      zip INTEGER NOT NULL check (zip between 47057 and 47059),
+      zip INTEGER NOT NULL,
       email TEXT NOT NULL unique
     )
   `);

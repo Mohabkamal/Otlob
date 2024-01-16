@@ -67,6 +67,11 @@ function Registration() {
             name="password"
             placeholder="Your Password ..."
           /> </div>
+
+          <div className="input-group"> <label> Picture URL: </label>
+          <ErrorMessage name="image_url" component="span" />
+          <Field id="image_url" name="image_url" placeholder="(https://example.com)" /> </div>
+          
           
           <div className="input-group"> <label> Address: </label>
           <ErrorMessage name="address" component="span" />

@@ -10,7 +10,7 @@ export const RestaurantCard = ({ restaurant, onClick  }) => {
     <div className="restaurant-card" onClick={() => onClick(restaurant)}>
       <img
         className="restaurant-image"
-        src={restaurant.image}
+        src={restaurant.image_url}
         alt={restaurant.name}
       />
 

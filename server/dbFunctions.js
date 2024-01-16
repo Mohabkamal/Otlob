@@ -388,7 +388,7 @@ module.exports = {
 
 // insertOrder("preparing", "date", "tasty", "2", "8", "{dsfdfsdfsdfsdfsdfsdfs}")
  //getAllRestaurants()
- getAllOrders()
+//  getAllOrders()
  //getCustomer("test11@")
 //getRestaurant("rest@email.com")
 //getCustomerPassword("test11@");
